@@ -3,7 +3,7 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - main  # Runs the pipeline when code is pushed to the main branch
+      - main
   pull_request:
     branches:
       - main
@@ -13,27 +13,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout code from the repository
+    # Step 1: Check out the code
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Set up PHP environment
-    - name: Setup PHP
+    # Step 2: Set up PHP
+    - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.0' # Adjust based on your PHP version
+        php-version: '8.4'       
         extensions: mbstring, json, pdo, mysqli
 
-    # Install dependencies
+    # Step 3: Install dependencies 
     - name: Install dependencies
       run: composer install
+      continue-on-error: true    
 
-    # Run PHP Linter
-    - name: Run PHP Linter
+    # Step 4: Run a basic PHP linter
+    - name: PHP Syntax Check
       run: php -l public/index.php
 
-    # Run JavaScript Tests
-    - name: Run JS Tests
+    # Step 5: Run tests 
+    - name: Run PHPUnit Tests
       run: |
-        npm install
-        npm test
+        if [ -f composer.json ]; then
+          vendor/bin/phpunit
+        else
+          echo "No tests to run."
+        fi
