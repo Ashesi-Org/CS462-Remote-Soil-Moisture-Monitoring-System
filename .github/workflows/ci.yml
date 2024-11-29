@@ -17,27 +17,31 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Step 2: Set up PHP
+    # Step 2: Set up PHP environment
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.4'       
+        php-version: '8.4.1'  
         extensions: mbstring, json, pdo, mysqli
 
-    # Step 3: Install dependencies 
-    - name: Install dependencies
+    # Step 3: Install dependencies
+    - name: Install Composer dependencies
       run: composer install
-      continue-on-error: true    
+      continue-on-error: false  
 
-    # Step 4: Run a basic PHP linter
+    # Step 4: Ensure PHPUnit is executable
+    - name: Make PHPUnit executable
+      run: chmod +x vendor/bin/phpunit
+
+    # Step 5: Run a basic PHP linter
     - name: PHP Syntax Check
-      run: php -l index.php
+      run: php -l index.php  
 
-    # Step 5: Run tests 
+    # Step 6: Run PHPUnit Tests
     - name: Run PHPUnit Tests
       run: |
         if [ -f composer.json ]; then
-          vendor/bin/phpunit
+          php vendor/bin/phpunit
         else
           echo "No tests to run."
         fi
