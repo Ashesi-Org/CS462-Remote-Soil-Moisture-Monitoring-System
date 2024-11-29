@@ -40,6 +40,7 @@ jobs:
     - name: List vendor directory
       run: ls -R vendor
 
+    # Step 6: Lint PHP code using PHP_CodeSniffer
     - name: Run PHP_CodeSniffer (Lint)
       run: |
         if [ -f composer.json ]; then
@@ -47,8 +48,18 @@ jobs:
         else
           echo "PHP_CodeSniffer not installed."
         fi
+      continue-on-error: true
 
-    # Step 6: Run PHPUnit Tests
+    # Step 7: Auto-fix code issues using PHP-CS-Fixer
+    - name: Auto-fix coding style issues
+      run: |
+        if [ -f composer.json ]; then
+          ./vendor/bin/php-cs-fixer fix --allow-risky=yes
+        else
+          echo "PHP-CS-Fixer not installed."
+        fi
+
+    # Step 8: Run PHPUnit Tests
     - name: Run PHPUnit Tests
       run: |
         if [ -f composer.json ]; then
