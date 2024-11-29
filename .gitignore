@@ -1,0 +1,28 @@
+# Ignore vendor directory
+/vendor/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore environment and configuration files
+.env
+.env.local
+.env.*
+
+# Ignore Composer cache files
+composer.phar
+
+# Ignore log files
+*.log
+
+# Ignore IDE/project-specific files
+.idea/
+*.iml
+.vscode/
+nbproject/
+*.sublime-workspace
+*.sublime-project
+
+# Ignore PHPUnit cache
+.phpunit.result.cache
