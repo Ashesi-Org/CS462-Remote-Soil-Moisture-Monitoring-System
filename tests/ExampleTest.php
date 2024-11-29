@@ -6,6 +6,6 @@ class ExampleTest extends TestCase
     // This is a basic test method
     public function testExample()
     {
-        $this->assertTrue(true);  // This test will always pass
+        $this->assertTrue(true);  // This test will pass
     }
 }
