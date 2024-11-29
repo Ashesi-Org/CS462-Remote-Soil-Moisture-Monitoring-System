@@ -21,13 +21,12 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.4.1'  
+        php-version: '8.3'
         extensions: mbstring, json, pdo, mysqli
 
     # Step 3: Install dependencies
     - name: Install Composer dependencies
       run: composer install
-      continue-on-error: true  
 
     # Step 4: Ensure PHPUnit is executable
     - name: Make PHPUnit executable
@@ -35,13 +34,17 @@ jobs:
 
     # Step 5: Run a basic PHP linter
     - name: PHP Syntax Check
-      run: php -l index.php  
+      run: php -l index.php
+
+    # Debugging Step: List vendor directory contents
+    - name: List vendor directory
+      run: ls -R vendor
 
     # Step 6: Run PHPUnit Tests
     - name: Run PHPUnit Tests
       run: |
         if [ -f composer.json ]; then
-          php vendor/bin/phpunit
+          ./vendor/bin/phpunit
         else
           echo "No tests to run."
         fi
