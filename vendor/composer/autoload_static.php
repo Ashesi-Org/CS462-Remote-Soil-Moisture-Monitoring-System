@@ -9,6 +9,7 @@ class ComposerStaticInitd04a6a4216eec9684d7a430e94632a78
     public static $files = array (
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
+        'ae2b2fbc1ae2e7a851a2af518947a092' => __DIR__ . '/../..' . '/index.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -20,10 +21,6 @@ class ComposerStaticInitd04a6a4216eec9684d7a430e94632a78
         array (
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
-        ),
-        'A' => 
-        array (
-            'App\\' => 4,
         ),
     );
 
@@ -39,10 +36,6 @@ class ComposerStaticInitd04a6a4216eec9684d7a430e94632a78
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
-        ),
-        'App\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
