@@ -31,7 +31,7 @@ jobs:
 
     # Step 4: Run a basic PHP linter
     - name: PHP Syntax Check
-      run: php -l public/index.php
+      run: php -l index.php
 
     # Step 5: Run tests 
     - name: Run PHPUnit Tests
