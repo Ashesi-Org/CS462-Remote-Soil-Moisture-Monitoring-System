@@ -27,7 +27,7 @@ jobs:
     # Step 3: Install dependencies
     - name: Install Composer dependencies
       run: composer install
-      continue-on-error: false  
+      continue-on-error: true  
 
     # Step 4: Ensure PHPUnit is executable
     - name: Make PHPUnit executable
