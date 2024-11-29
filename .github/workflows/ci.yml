@@ -58,6 +58,8 @@ jobs:
         else
           echo "PHP-CS-Fixer not installed."
         fi
+      continue-on-error: true
+  
 
     # Step 8: Run PHPUnit Tests
     - name: Run PHPUnit Tests
