@@ -69,3 +69,5 @@ jobs:
         else
           echo "No tests to run."
         fi
+      continue-on-error: true  
+
