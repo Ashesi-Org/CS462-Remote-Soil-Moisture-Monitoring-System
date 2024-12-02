@@ -98,7 +98,7 @@
 <body>
     <!-- Header -->
     <header>
-        <img src="/images/logo.png" alt="System Logo">
+        <img src="../images/logo.png" alt="System Logo">
         <h1>Smart Irrigation System</h1>
     </header>
 
@@ -110,10 +110,10 @@
             <div class="col-lg-6 d-flex justify-content-center align-items-center">
                 <div class="image-container">
                     <div class="polaroid">
-                        <img src="/images/happyfarmer2.png" alt="Farm Background">
+                        <img src="../images/happyfarmer2.png" alt="Farm Background">
                     </div>
                     <div class="polaroid">
-                        <img src="/images/happyfarmer.png" alt="Happy Farmer">
+                        <img src="../images/happyfarmer.png" alt="Happy Farmer">
                     </div>
                 </div>
             </div>
