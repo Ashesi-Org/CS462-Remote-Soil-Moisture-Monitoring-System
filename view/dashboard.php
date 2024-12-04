@@ -36,6 +36,12 @@
                         <span class="link-name">Irrigation Schedule</span>
                     </a>
                 </li>
+                <li>
+                    <a href="schedule.php">
+                        <i class='bx bx-calendar'></i>
+                        <span class="link-name">Data Visualization</span>
+                    </a>
+                </li>
                 <!-- ... other sidebar links ... -->
             </ul>
         </nav>
