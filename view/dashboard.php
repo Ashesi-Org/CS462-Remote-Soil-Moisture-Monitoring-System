@@ -37,7 +37,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="schedule.php"></a>
+                    <a href="visualization.php">
                         <i class='bx bx-bar-chart-alt-2'></i>
                         <span class="link-name">Data Visualization</span>
                     </a>
