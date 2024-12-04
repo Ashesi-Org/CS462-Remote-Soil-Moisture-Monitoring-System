@@ -69,52 +69,121 @@
 
             <!-- Page Content -->
             <div class="container-fluid py-4">
-                <div class="row">
-                    <!-- Soil Moisture Overview -->
-                    <div class="col-lg-8">
+                <!-- Alert Section -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <i class='bx bx-info-circle me-2'></i>
+                            <strong>Alert:</strong> Soil moisture critically low in Zone B
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Metrics Cards -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
                         <div class="dashboard-card">
-                            <h4>Soil Moisture Levels</h4>
-                            <div id="moistureChart"></div>
-                            <div class="mt-3">
-                                <span class="moisture-indicator moisture-dry"></span> Dry
-                                <span class="moisture-indicator moisture-optimal ms-3"></span> Optimal
-                                <span class="moisture-indicator moisture-wet ms-3"></span> Wet
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted mb-1">Current Soil Moisture</h6>
+                                    <h3 class="mb-0">45%</h3>
+                                    <small class="text-danger">
+                                        <i class='bx bx-down-arrow-alt'></i> Below optimal
+                                    </small>
+                                </div>
+                                <div class="fs-1 text-success">
+                                    <i class='bx bx-droplet'></i>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="dashboard-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted mb-1">Next Irrigation</h6>
+                                    <h3 class="mb-0">2h</h3>
+                                    <small class="text-success">Scheduled for 2:00 PM</small>
+                                </div>
+                                <div class="fs-1 text-success">
+                                    <i class='bx bx-time'></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="dashboard-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted mb-1">Today's Water Usage</h6>
+                                    <h3 class="mb-0">250L</h3>
+                                    <small class="text-success">
+                                        <i class='bx bx-up-arrow-alt'></i> 15% less than avg
+                                    </small>
+                                </div>
+                                <div class="fs-1 text-success">
+                                    <i class='bx bx-water'></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="dashboard-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted mb-1">System Status</h6>
+                                    <h3 class="mb-0">Active</h3>
+                                    <small class="text-success">All systems operational</small>
+                                </div>
+                                <div class="fs-1 text-success">
+                                    <i class='bx bx-check-circle'></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="row mb-4">
+                    <!-- Soil Moisture Trend -->
+                    <div class="col-lg-8 mb-4">
+                        <div class="dashboard-card">
+                            <h4>Today's Soil Moisture Trend</h4>
+                            <div id="moistureChart"></div>
                         </div>
                     </div>
 
                     <!-- Weather Summary -->
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 mb-4">
                         <div class="dashboard-card">
-                            <h4>Current Weather</h4>
-                            <div class="d-flex align-items-center mb-3">
+                            <h4>Weather Forecast</h4>
+                            <div class="d-flex align-items-center mb-4">
                                 <i class='bx bx-sun weather-icon'></i>
                                 <div class="ms-3">
                                     <h2 class="mb-0">28°C</h2>
                                     <p class="mb-0">Sunny</p>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <p class="mb-1">Humidity: 65%</p>
-                                    <p class="mb-1">Wind: 12 km/h</p>
-                                </div>
-                                <div class="col-6">
-                                    <p class="mb-1">Rainfall: 0mm</p>
-                                    <p class="mb-1">UV Index: High</p>
-                                </div>
-                            </div>
-                            <div class="weather-forecast mt-3">
-                                <h6 class="mb-3">7-Day Forecast</h6>
-                                <div class="d-flex justify-content-between">
+                            <div class="weather-forecast">
+                                <div class="row g-0">
                                     <?php
-                                    $days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-                                    foreach ($days as $day) {
+                                    $forecasts = [
+                                        ['day' => 'Mon', 'temp' => '24°', 'icon' => 'bx-sun'],
+                                        ['day' => 'Tue', 'temp' => '23°', 'icon' => 'bx-cloud'],
+                                        ['day' => 'Wed', 'temp' => '25°', 'icon' => 'bx-sun'],
+                                        ['day' => 'Thu', 'temp' => '22°', 'icon' => 'bx-cloud-rain'],
+                                    ];
+
+                                    foreach ($forecasts as $forecast) {
                                         echo "
-                                        <div class='text-center'>
-                                            <small>$day</small>
-                                            <i class='bx bx-sun d-block'></i>
-                                            <small>24°C</small>
+                                        <div class='col-3 text-center'>
+                                            <small class='text-muted'>{$forecast['day']}</small>
+                                            <i class='bx {$forecast['icon']} d-block my-2'></i>
+                                            <small>{$forecast['temp']}</small>
                                         </div>";
                                     }
                                     ?>
@@ -124,24 +193,68 @@
                     </div>
                 </div>
 
-                <div class="row mt-4">
-                    <!-- Irrigation Recommendations -->
-                    <div class="col-lg-6">
+                <!-- Recent Activity and Notifications -->
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
                         <div class="dashboard-card">
-                            <h4>Irrigation Recommendations</h4>
-                            <div class="alert alert-custom">
-                                <strong>Recommended Action:</strong> Schedule irrigation for tomorrow morning
-                                <p class="mb-0">Suggested volume: 2.5L/m² | Best time: 6:00 AM</p>
+                            <h4>Recent Activity</h4>
+                            <div class="activity-list">
+                                <div class="activity-item d-flex align-items-center py-2">
+                                    <div class="activity-icon bg-success-subtle rounded-circle p-2 me-3">
+                                        <i class='bx bx-water text-success'></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0">Irrigation completed in Zone A</p>
+                                        <small class="text-muted">2 hours ago</small>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex align-items-center py-2">
+                                    <div class="activity-icon bg-warning-subtle rounded-circle p-2 me-3">
+                                        <i class='bx bx-bell text-warning'></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0">Low moisture alert in Zone B</p>
+                                        <small class="text-muted">3 hours ago</small>
+                                    </div>
+                                </div>
+                                <div class="activity-item d-flex align-items-center py-2">
+                                    <div class="activity-icon bg-info-subtle rounded-circle p-2 me-3">
+                                        <i class='bx bx-refresh text-info'></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0">System maintenance completed</p>
+                                        <small class="text-muted">5 hours ago</small>
+                                    </div>
+                                </div>
                             </div>
-                            <div id="irrigationScheduleChart"></div>
                         </div>
                     </div>
 
-                    <!-- Historical Trends -->
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 mb-4">
                         <div class="dashboard-card">
-                            <h4>Historical Trends</h4>
-                            <div id="trendsChart"></div>
+                            <h4>Upcoming Tasks</h4>
+                            <div class="task-list">
+                                <div class="task-item d-flex align-items-center justify-content-between py-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class='bx bx-water me-3 text-success'></i>
+                                        <div>
+                                            <p class="mb-0">Schedule irrigation for Zone C</p>
+                                            <small class="text-muted">Today, 2:00 PM</small>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-success">Schedule</button>
+                                </div>
+                                <div class="task-item d-flex align-items-center justify-content-between py-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class='bx bx-check-circle me-3 text-warning'></i>
+                                        <div>
+                                            <p class="mb-0">System maintenance check</p>
+                                            <small class="text-muted">Tomorrow, 9:00 AM</small>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-warning">Review</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
