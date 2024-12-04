@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="schedule.php">
+                    <a href="irrigation-schedule.php">
                         <i class='bx bx-calendar'></i>
                         <span class="link-name">Irrigation Schedule</span>
                     </a>
