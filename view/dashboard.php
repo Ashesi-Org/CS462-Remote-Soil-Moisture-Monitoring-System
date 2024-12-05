@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Irrigation Dashboard</title>
-    
+
     <!-- CSS Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
-    
-    
+
+
 </head>
 
 <body>
@@ -37,7 +38,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="visualization.php">
+                    <a href="data_visualization.php">
                         <i class='bx bx-bar-chart-alt-2'></i>
                         <span class="link-name">Data Visualization</span>
                     </a>
@@ -55,17 +56,20 @@
                         <i class='bx bx-menu'></i>
                     </button>
                     <span class="navbar-brand ms-2">Dashboard</span>
-                    
+
                     <!-- User Dropdown -->
                     <div class="ms-auto">
                         <div class="dropdown">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-success dropdown-toggle" type="button" id="userDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class='bx bx-user-circle fs-5'></i>
                                 <span class="ms-1">John Doe</span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
                                 <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                             </ul>
                         </div>
@@ -104,7 +108,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="dashboard-card">
                             <div class="d-flex justify-content-between align-items-center">
@@ -119,7 +123,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="dashboard-card">
                             <div class="d-flex justify-content-between align-items-center">
@@ -136,7 +140,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="dashboard-card">
                             <div class="d-flex justify-content-between align-items-center">
@@ -312,79 +316,79 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-        // Soil Moisture Chart
-        const moistureChart = new ApexCharts(document.querySelector("#moistureChart"), {
-            series: [{
-                name: 'Moisture Level',
-                data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-            }],
-            chart: {
-                height: 350,
-                type: 'area',
-                toolbar: {
-                    show: false
-                }
-            },
-            colors: ['#198754'],
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shadeIntensity: 1,
-                    opacityFrom: 0.7,
-                    opacityTo: 0.9,
-                    stops: [0, 90, 100]
-                }
-            },
-            xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
+    // Soil Moisture Chart
+    const moistureChart = new ApexCharts(document.querySelector("#moistureChart"), {
+        series: [{
+            name: 'Moisture Level',
+            data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+        }],
+        chart: {
+            height: 350,
+            type: 'area',
+            toolbar: {
+                show: false
             }
-        });
-        moistureChart.render();
+        },
+        colors: ['#198754'],
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.9,
+                stops: [0, 90, 100]
+            }
+        },
+        xaxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
+        }
+    });
+    moistureChart.render();
 
-        // Irrigation Schedule Chart
-        const irrigationChart = new ApexCharts(document.querySelector("#irrigationScheduleChart"), {
-            series: [{
-                name: 'Volume (L/m²)',
-                data: [2.1, 2.8, 2.3, 2.5, 2.2, 2.9, 2.4]
-            }],
-            chart: {
-                height: 250,
-                type: 'bar',
-                toolbar: {
-                    show: false
-                }
-            },
-            colors: ['#198754'],
-            xaxis: {
-                categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    // Irrigation Schedule Chart
+    const irrigationChart = new ApexCharts(document.querySelector("#irrigationScheduleChart"), {
+        series: [{
+            name: 'Volume (L/m²)',
+            data: [2.1, 2.8, 2.3, 2.5, 2.2, 2.9, 2.4]
+        }],
+        chart: {
+            height: 250,
+            type: 'bar',
+            toolbar: {
+                show: false
             }
-        });
-        irrigationChart.render();
+        },
+        colors: ['#198754'],
+        xaxis: {
+            categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        }
+    });
+    irrigationChart.render();
 
-        // Historical Trends Chart
-        const trendsChart = new ApexCharts(document.querySelector("#trendsChart"), {
-            series: [{
-                name: 'Actual',
-                data: [31, 40, 28, 51, 42, 109, 100]
-            }, {
-                name: 'Predicted',
-                data: [11, 32, 45, 32, 34, 52, 41]
-            }],
-            chart: {
-                height: 250,
-                type: 'line',
-                toolbar: {
-                    show: false
-                }
-            },
-            colors: ['#198754', '#ffc107'],
-            xaxis: {
-                categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    // Historical Trends Chart
+    const trendsChart = new ApexCharts(document.querySelector("#trendsChart"), {
+        series: [{
+            name: 'Actual',
+            data: [31, 40, 28, 51, 42, 109, 100]
+        }, {
+            name: 'Predicted',
+            data: [11, 32, 45, 32, 34, 52, 41]
+        }],
+        chart: {
+            height: 250,
+            type: 'line',
+            toolbar: {
+                show: false
             }
-        });
-        trendsChart.render();
-        
+        },
+        colors: ['#198754', '#ffc107'],
+        xaxis: {
+            categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        }
+    });
+    trendsChart.render();
     </script>
     <script src="../assets/js/dashboard.js"></script>
 </body>
+
 </html>
