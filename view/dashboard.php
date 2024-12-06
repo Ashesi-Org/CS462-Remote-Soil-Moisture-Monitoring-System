@@ -171,6 +171,7 @@
                     <div class="col-lg-4 mb-4">
                         <div class="dashboard-card">
                             <h4>Weather Forecast</h4>
+                            <?php include '../api.php/weatherApi.php'; ?>
                             <div class="d-flex align-items-center mb-4">
                                 <i class='bx bx-sun weather-icon'></i>
                                 <div class="ms-3">
@@ -364,31 +365,3 @@
         }
     });
     irrigationChart.render();
-
-    // Historical Trends Chart
-    const trendsChart = new ApexCharts(document.querySelector("#trendsChart"), {
-        series: [{
-            name: 'Actual',
-            data: [31, 40, 28, 51, 42, 109, 100]
-        }, {
-            name: 'Predicted',
-            data: [11, 32, 45, 32, 34, 52, 41]
-        }],
-        chart: {
-            height: 250,
-            type: 'line',
-            toolbar: {
-                show: false
-            }
-        },
-        colors: ['#198754', '#ffc107'],
-        xaxis: {
-            categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        }
-    });
-    trendsChart.render();
-    </script>
-    <script src="../assets/js/dashboard.js"></script>
-</body>
-
-</html>

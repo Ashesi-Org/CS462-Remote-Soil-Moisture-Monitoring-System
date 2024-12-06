@@ -1,0 +1,66 @@
+/* General Styles for the Weather Section */
+#current-weather {
+    background-color: #f7f7f7; /* Light grey background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+
+/* Title */
+#current-weather h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+/* Weather Icon */
+.weather-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+/* Weather Data (Temperature, Description, etc.) */
+#current-weather p {
+    font-size: 18px;
+    margin: 8px 0;
+    color: #555;
+}
+
+/* Temperature Style */
+#current-weather .temperature {
+    font-size: 40px;
+    font-weight: bold;
+    color: #1e90ff; /* Blue */
+}
+
+/* Weather Description Style */
+#current-weather .description {
+    font-size: 22px;
+    color: #4b4b4b;
+}
+
+/* Humidity and Wind Speed */
+#current-weather .additional-info p {
+    font-size: 16px;
+    color: #777;
+}
+
+/* Responsiveness for mobile */
+@media (max-width: 600px) {
+    #current-weather {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    #current-weather h2 {
+        font-size: 20px;
+    }
+
+    #current-weather .temperature {
+        font-size: 36px;
+    }
+}
