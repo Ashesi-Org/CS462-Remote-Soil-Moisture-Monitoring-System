@@ -13,8 +13,10 @@ RUN apt-get update && apt-get install -y \
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy composer files first for better caching
-COPY composer.json composer.lock ./
+# Copy composer.json only (remove composer.lock reference)
+COPY composer.json ./
+
+# Install dependencies
 RUN composer install --no-scripts --no-autoloader
 
 # Copy application code
@@ -29,9 +31,5 @@ COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html
-
-# Add health check
-HEALTHCHECK --interval=30s --timeout=3s \
-    CMD curl -f http://localhost/health || exit 1
 
 EXPOSE 80 
