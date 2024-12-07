@@ -39,12 +39,28 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.3'
+        php-version: '8.2'
         extensions: mbstring, xml, ctype, iconv, intl, pdo_pgsql, curl, dom
         coverage: xdebug
 
-    - name: Install Dependencies
-      run: composer install --prefer-dist --no-progress
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
+
+    - name: Delete composer.lock
+      run: rm -f composer.lock
+
+    - name: Install dependencies
+      run: |
+        composer install --prefer-dist --no-progress --no-suggest
+        composer dump-autoload -o
 
     - name: Run PHP Code Sniffer
       run: vendor/bin/phpcs --standard=PSR12 src/
