@@ -1,0 +1,149 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  GKE_CLUSTER: eco-go
+  GKE_ZONE: us-central1
+  DOCKER_USERNAME: joelkodji
+  DEPLOYMENT_NAME: eco-go
+
+jobs:
+  test:
+    name: Test Application
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        extensions: mbstring, xml, ctype, iconv, intl, pdo_pgsql, curl, dom
+        coverage: xdebug
+
+    - name: Install Dependencies
+      run: composer install --prefer-dist --no-progress
+
+    - name: Run PHP Code Sniffer
+      run: vendor/bin/phpcs --standard=PSR12 src/
+
+    - name: Run PHPUnit tests
+      run: vendor/bin/phpunit --coverage-text
+
+  build-and-push:
+    name: Build and Push Docker Images
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ env.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push Backend
+      uses: docker/build-push-action@v4
+      with:
+        context: ./backend
+        push: true
+        tags: |
+          ${{ env.DOCKER_USERNAME }}/eco-go:backend-${{ github.sha }}
+          ${{ env.DOCKER_USERNAME }}/eco-go:backend-latest
+
+    - name: Build and push Frontend
+      uses: docker/build-push-action@v4
+      with:
+        context: ./frontend
+        push: true
+        tags: |
+          ${{ env.DOCKER_USERNAME }}/eco-go:frontend-${{ github.sha }}
+          ${{ env.DOCKER_USERNAME }}/eco-go:frontend-latest
+
+  deploy:
+    name: Deploy to GKE
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ env.PROJECT_ID }}
+
+    - name: Get GKE credentials
+      uses: google-github-actions/get-gke-credentials@v1
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
+
+    - name: Set up Kustomize
+      run: |-
+        curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+        chmod u+x ./kustomize
+
+    - name: Deploy to GKE
+      run: |-
+        # Create secrets first
+        echo "Creating secrets..."
+        kubectl create secret generic pgadmin-secret \
+          --from-literal=PGADMIN_DEFAULT_EMAIL=admin@ecogo.com \
+          --from-literal=PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_PASSWORD }} \
+          --dry-run=client -o yaml | kubectl apply -f -
+        
+        # Update image tags
+        sed -i "s|joelkodji/eco-go:backend-.*|joelkodji/eco-go:backend-${{ github.sha }}|" kubernetes/backend.yaml
+        sed -i "s|joelkodji/eco-go:frontend-.*|joelkodji/eco-go:frontend-${{ github.sha }}|" kubernetes/frontend.yaml
+        
+        # Create namespace if it doesn't exist
+        kubectl create namespace eco-go --dry-run=client -o yaml | kubectl apply -f -
+        
+        # Apply Kubernetes manifests
+        kubectl apply -f kubernetes/configmap.yaml
+        kubectl apply -f kubernetes/postgres.yaml
+        kubectl apply -f kubernetes/backend.yaml
+        kubectl apply -f kubernetes/frontend.yaml
+        kubectl apply -f kubernetes/pgadmin-deployment.yaml
+        kubectl apply -f kubernetes/ingress.yaml
+        
+        # Verify deployments
+        kubectl rollout status deployment/backend -n eco-go
+        kubectl rollout status deployment/frontend -n eco-go
+        kubectl rollout status deployment/pgadmin -n eco-go

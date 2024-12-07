@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: php-app
+        image: joelkodji/eco-go:backend-${GITHUB_SHA}
+        envFrom:
+        - configMapRef:
+            name: app-config
+        - secretRef:
+            name: postgres-secret
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 250m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP 
