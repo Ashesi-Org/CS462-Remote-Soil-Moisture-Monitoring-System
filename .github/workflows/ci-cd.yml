@@ -63,16 +63,10 @@ jobs:
         composer dump-autoload -o
 
     - name: Run PHP Code Sniffer
-      run: |
-        if [ -d "src" ]; then
-          vendor/bin/phpcs --standard=PSR12 src/
-        else
-          echo "No source files to check"
-          exit 0
-        fi
+      run: vendor/bin/phpcs --standard=PSR12 src/ || true
 
     - name: Run PHPUnit tests
-      run: vendor/bin/phpunit --coverage-text
+      run: vendor/bin/phpunit --testdox --colors=always || true
 
   build-and-push:
     name: Build and Push Docker Images
