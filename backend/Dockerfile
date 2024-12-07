@@ -13,7 +13,10 @@ RUN apt-get update && apt-get install -y \
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy composer.json only (remove composer.lock reference)
+# Enable Apache modules
+RUN a2enmod rewrite headers
+
+# Copy composer.json only
 COPY composer.json ./
 
 # Install dependencies
@@ -26,8 +29,10 @@ COPY . .
 RUN composer dump-autoload --optimize
 
 # Configure Apache
-RUN a2enmod rewrite
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
+
+# Create public directory
+RUN mkdir -p /var/www/html/public
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html
