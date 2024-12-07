@@ -5,7 +5,7 @@ metadata:
 type: Opaque
 data:
   PGADMIN_DEFAULT_EMAIL: YWRtaW5AZWNvZ28uY29t    
-  PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}  
+  PGADMIN_DEFAULT_PASSWORD: ZWNvZ28xMjM=  
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -24,9 +24,17 @@ spec:
       containers:
       - name: pgadmin-container
         image: dpage/pgadmin4:7
-        envFrom:
-        - secretRef:
-            name: pgadmin-secret
+        env:
+        - name: PGADMIN_DEFAULT_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: pgadmin-secret
+              key: PGADMIN_DEFAULT_EMAIL
+        - name: PGADMIN_DEFAULT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pgadmin-secret
+              key: PGADMIN_DEFAULT_PASSWORD
         resources:
           requests:
             cpu: 100m
