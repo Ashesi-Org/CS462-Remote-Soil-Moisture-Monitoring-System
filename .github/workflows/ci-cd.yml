@@ -8,7 +8,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  GKE_CLUSTER: eco-go
+  GKE_CLUSTER: eco-go-cluster
   GKE_ZONE: us-central1
   DOCKER_USERNAME: joelkodji
   DEPLOYMENT_NAME: eco-go
