@@ -138,10 +138,10 @@ jobs:
     - name: Deploy to GKE
       run: |-
         # Create secrets first
-        echo "Creating secrets..."
-        kubectl create secret generic pgadmin-secret \
-          --from-literal=PGADMIN_DEFAULT_EMAIL=admin@ecogo.com \
-          --from-literal=PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_PASSWORD }} \
+        kubectl create secret generic postgres-secret \
+          --from-literal=POSTGRES_USER=postgres \
+          --from-literal=POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
+          --from-literal=POSTGRES_DB=ecogo \
           --dry-run=client -o yaml | kubectl apply -f -
         
         # Update image tags
