@@ -148,9 +148,6 @@ jobs:
         sed -i "s|joelkodji/eco-go:backend-.*|joelkodji/eco-go:backend-${{ github.sha }}|" kubernetes/backend.yaml
         sed -i "s|joelkodji/eco-go:frontend-.*|joelkodji/eco-go:frontend-${{ github.sha }}|" kubernetes/frontend.yaml
         
-        # Create namespace if it doesn't exist
-        kubectl create namespace eco-go --dry-run=client -o yaml | kubectl apply -f -
-        
         # Apply Kubernetes manifests
         kubectl apply -f kubernetes/configmap.yaml
         kubectl apply -f kubernetes/postgres.yaml
@@ -160,6 +157,6 @@ jobs:
         kubectl apply -f kubernetes/ingress.yaml
         
         # Verify deployments
-        kubectl rollout status deployment/backend -n eco-go
-        kubectl rollout status deployment/frontend -n eco-go
-        kubectl rollout status deployment/pgadmin -n eco-go
+        kubectl rollout status deployment/backend
+        kubectl rollout status deployment/frontend
+        kubectl rollout status deployment/pgadmin

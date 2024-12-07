@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: backend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: backend
@@ -13,22 +13,16 @@ spec:
         app: backend
     spec:
       containers:
-      - name: php-app
-        image: joelkodji/eco-go:backend-${GITHUB_SHA}
-        envFrom:
-        - configMapRef:
-            name: app-config
-        - secretRef:
-            name: postgres-secret
+      - name: backend
+        image: joelkodji/eco-go:backend-latest
         ports:
         - containerPort: 80
-        resources:
-          requests:
-            cpu: 250m
-            memory: 256Mi
-          limits:
-            cpu: 500m
-            memory: 512Mi
+        env:
+        - name: POSTGRES_HOST
+          value: postgres-service
+        envFrom:
+        - secretRef:
+            name: postgres-secret
 ---
 apiVersion: v1
 kind: Service
