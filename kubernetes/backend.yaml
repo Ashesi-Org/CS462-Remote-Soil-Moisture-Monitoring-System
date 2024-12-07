@@ -17,10 +17,9 @@ spec:
         image: joelkodji/eco-go:backend-latest
         ports:
         - containerPort: 80
-        env:
-        - name: POSTGRES_HOST
-          value: postgres-service
         envFrom:
+        - configMapRef:
+            name: app-config
         - secretRef:
             name: postgres-secret
 ---
