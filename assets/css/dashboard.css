@@ -309,5 +309,61 @@ body {
     color: #198754;
 }
 
+/* Hourly Forecast Styling */
+.hourly-forecast {
+    overflow-x: auto;
+    padding: 0.5rem 0;
+    margin: 0 -0.5rem;
+}
+
+.hourly-forecast .row {
+    flex-wrap: nowrap;
+    margin: 0;
+    padding: 0 0.5rem;
+}
+
+.hourly-forecast .col {
+    flex: 0 0 auto;
+    width: auto;
+    padding: 0.5rem;
+    min-width: 60px;
+}
+
+.hourly-forecast i {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+.hourly-forecast small {
+    font-size: 0.75rem;
+}
+
+/* Add subtle scroll indicators if content overflows */
+.hourly-forecast::-webkit-scrollbar {
+    height: 4px;
+}
+
+.hourly-forecast::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+}
+
+.hourly-forecast::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+/* Add fade effect to indicate scrollable content */
+.hourly-forecast::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    background: linear-gradient(to right, transparent, white);
+    pointer-events: none;
+}
+
 
 
