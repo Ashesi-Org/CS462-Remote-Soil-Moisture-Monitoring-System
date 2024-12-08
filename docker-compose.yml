@@ -5,6 +5,8 @@ services:
     build: ./frontend
     ports:
       - "80:80"
+    volumes:
+      - ./frontend/public:/usr/share/nginx/html
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
       interval: 30s
