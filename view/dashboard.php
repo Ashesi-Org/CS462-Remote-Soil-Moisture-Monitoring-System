@@ -172,7 +172,7 @@
                         <div class="dashboard-card">
                             <h4>Weather Forecast</h4>
                             <?php include '../api.php/weatherApi.php'; ?>
-                            <div class="d-flex align-items-center mb-4">
+                            <!-- <div class="d-flex align-items-center mb-4">
                                 <i class='bx bx-sun weather-icon'></i>
                                 <div class="ms-3">
                                     <h2 class="mb-0">28°C</h2>
@@ -182,7 +182,7 @@
                             <div class="weather-forecast">
                                 <div class="row g-0">
                                     <?php
-                                    $forecasts = [
+                                    /*$forecasts = [
                                         ['day' => 'Mon', 'temp' => '24°', 'icon' => 'bx-sun'],
                                         ['day' => 'Tue', 'temp' => '23°', 'icon' => 'bx-cloud'],
                                         ['day' => 'Wed', 'temp' => '25°', 'icon' => 'bx-sun'],
@@ -196,10 +196,10 @@
                                             <i class='bx {$forecast['icon']} d-block my-2'></i>
                                             <small>{$forecast['temp']}</small>
                                         </div>";
-                                    }
+                                    }*/
                                     ?>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -364,4 +364,9 @@
             categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
         }
     });
-    irrigationChart.render();
+    trendsChart.render();
+    </script>
+    <script src="../assets/js/dashboard.js"></script>
+    <script src="../assets/js/weatherApi.js"></script>
+
+</html>
