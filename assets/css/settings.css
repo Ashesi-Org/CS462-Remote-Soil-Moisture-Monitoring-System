@@ -56,3 +56,49 @@
         padding: 15px;
     }
 }
+
+/* Field size input group */
+.input-group {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.input-group .form-control {
+    border-right: none;
+}
+
+.input-group .form-select {
+    border-left: none;
+    background-position: right 0.5rem center;
+}
+
+/* Enhanced select styling */
+.form-select {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.form-select:hover {
+    background-color: #fff;
+}
+
+/* Small labels */
+.small.text-muted {
+    font-size: 0.875rem;
+}
+
+/* Row spacing */
+.row.g-3 {
+    margin-top: 0.25rem;
+}
+
+/* Validation styles */
+.form-control:invalid,
+.form-select:invalid {
+    border-color: var(--danger-color);
+}
+
+.form-control:valid,
+.form-select:valid {
+    border-color: var(--success-color);
+}

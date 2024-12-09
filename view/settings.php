@@ -90,28 +90,78 @@
                         <div class="dashboard-card">
                             <h4><i class='bx bx-cog me-2'></i>System Settings</h4>
                             <form>
+                                <!-- Field Settings -->
                                 <div class="mb-3">
-                                    <label class="form-label">Default Field Size Unit</label>
+                                    <label class="form-label">Field Size</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" placeholder="Enter field size" step="0.1">
+                                        <select class="form-select" style="max-width: 120px;">
+                                            <option value="hectares">Hectares</option>
+                                            <option value="acres">Acres</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Soil Settings -->
+                                <div class="mb-3">
+                                    <label class="form-label">Soil Type</label>
                                     <select class="form-select">
-                                        <option value="hectares">Hectares</option>
-                                        <option value="acres">Acres</option>
+                                        <option value="">Select soil type</option>
+                                        <option value="sandy">Sandy Soil</option>
+                                        <option value="clay">Clay Soil</option>
+                                        <option value="loamy">Loamy Soil</option>
+                                        <option value="silty">Silty Soil</option>
+                                        <option value="peaty">Peaty Soil</option>
+                                        <option value="chalky">Chalky Soil</option>
                                     </select>
                                 </div>
+
+                                <!-- Crop Settings -->
                                 <div class="mb-3">
-                                    <label class="form-label">Temperature Unit</label>
+                                    <label class="form-label">Primary Crop Type</label>
                                     <select class="form-select">
-                                        <option value="celsius">Celsius</option>
-                                        <option value="fahrenheit">Fahrenheit</option>
+                                        <option value="">Select crop type</option>
+                                        <option value="corn">Corn</option>
+                                        <option value="wheat">Wheat</option>
+                                        <option value="rice">Rice</option>
+                                        <option value="soybeans">Soybeans</option>
+                                        <option value="vegetables">Vegetables</option>
+                                        <option value="fruits">Fruits</option>
+                                        <option value="cotton">Cotton</option>
                                     </select>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Time Zone</label>
+
+                                <!-- Irrigation Preferences -->
+                                <!-- <div class="mb-3">
+                                    <label class="form-label">Preferred Irrigation Time</label>
                                     <select class="form-select">
-                                        <option value="UTC-8">Pacific Time (PT)</option>
-                                        <option value="UTC-5">Eastern Time (ET)</option>
-                                        <option value="UTC+0">UTC</option>
+                                        <option value="early_morning">Early Morning (4AM - 8AM)</option>
+                                        <option value="late_evening">Late Evening (6PM - 10PM)</option>
+                                        <option value="night">Night (10PM - 4AM)</option>
                                     </select>
+                                </div> -->
+
+                                <!-- Units Settings -->
+                                <!-- <div class="mb-3">
+                                    <label class="form-label">Measurement Units</label>
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <label class="form-label small text-muted">Temperature</label>
+                                            <select class="form-select">
+                                                <option value="celsius">Celsius</option>
+                                                <option value="fahrenheit">Fahrenheit</option>
+                                            </select>
+                                        </div> -->
+                                        <div class="col-6">
+                                            <label class="form-label small text-muted">Water Volume</label>
+                                            <select class="form-select">
+                                                <option value="liters">Liters</option>
+                                                <option value="gallons">Gallons</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <button type="submit" class="btn btn-success">Save Settings</button>
                             </form>
                         </div>
