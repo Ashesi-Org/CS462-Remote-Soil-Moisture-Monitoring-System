@@ -1,0 +1,215 @@
+:root {
+    --primary-color: #198754;
+    --secondary-color: #155d40;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --success-color: #28a745;
+    --text-dark: #2c3e50;
+    --text-muted: #6c757d;
+    --border-radius: 12px;
+}
+.custom-btn {
+    background-color: #4CAF50; 
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Optional: rounded corners */
+    padding: 6px 12px; /* Adjust padding for size */
+    font-size: 14px; /* Font size adjustment */
+    cursor: pointer; /* Pointer on hover */
+}
+
+.custom-btn:hover {
+    background-color: #45a049; /* Darker green for hover effect */
+}
+
+body {
+    font-family: 'Inter', 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: var(--text-dark);
+}
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+.sidebar {
+    min-width: 260px;
+    max-width: 260px;
+    background: #fff;
+    transition: all 0.3s;
+    border-right: 1px solid #e0e0e0;
+    height: 100vh;
+    position: fixed;
+    z-index: 1000;
+}
+
+.sidebar.active {
+    margin-left: -260px;
+}
+
+.main-content {
+    width: 100%;
+    min-height: 100vh;
+    margin-left: 260px;
+    transition: all 0.3s;
+}
+
+/* Logo styles */
+.logo-details {
+    height: 60px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    background: #198754;
+}
+
+.logo-details img {
+    margin-right: 10px;
+}
+
+.logo-details .logo-name {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Enhanced Navigation */
+.navbar {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 1rem 2rem;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Schedule Table Styles */
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.schedule-table th, .schedule-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.schedule-table th {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.schedule-table tr:hover {
+    background-color: rgba(25, 135, 84, 0.1);
+}
+
+.schedule-table td {
+    color: var(--text-dark);
+}
+
+/* Schedule Card */
+.schedule-card {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.schedule-card h4 {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+/* Schedule Buttons */
+.btn-schedule {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    color: white;
+    background: var(--primary-color);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-schedule:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(25, 135, 84, 0.2);
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .schedule-table, .schedule-table thead, .schedule-table tbody, .schedule-table th, .schedule-table td, .schedule-table tr {
+        display: block;
+    }
+
+    .schedule-table th {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .schedule-table td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .schedule-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+}
+
+
+
+/* Enhanced Modal */
+.modal-content {
+    border-radius: var(--border-radius);
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 1.5rem;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding: 1.5rem;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 0.75rem 1rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
+}
+
