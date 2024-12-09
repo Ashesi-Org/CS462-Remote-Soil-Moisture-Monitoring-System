@@ -5,24 +5,20 @@ services:
     build: ./frontend
     ports:
       - "80:80"
-    healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+    volumes:
+      - ./frontend/public:/usr/share/nginx/html
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
 
   backend:
     build: ./backend
+    expose:
+      - "80"
     environment:
       - POSTGRES_HOST=postgres
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - WEATHER_API_URL=${WEATHER_API_URL}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/health"]
       interval: 30s
