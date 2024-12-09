@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Irrigation Schedule</title>
+    <title>Irrigation Schedule Recomender</title>
 
     <!-- External Stylesheets -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@
                 <li>
                     <a href="irrigation-schedule.php">
                         <i class='bx bx-calendar'></i>
-                        <span class="link-name">Irrigation Schedule</span>
+                        <span class="link-name">Irrigation Schedule Recommender</span>
                     </a>
                 </li>
                 
@@ -57,7 +57,7 @@
                     <button class="navbar-toggler d-lg-none" type="button" id="sidebarCollapse">
                         <i class='bx bx-menu'></i>
                     </button>
-                    <span class="navbar-brand ms-2">Irrigation Schedule</span>
+                    <span class="navbar-brand ms-2">Irrigation Schedule Recommender</span>
                     
                     <!-- User Dropdown -->
                     <div class="ms-auto">
@@ -78,76 +78,72 @@
 
             <!-- Main Content Section -->
             <div class="container my-5">
-                <div class="schedule-card">
-                    <h4>Your Irrigation Schedule</h4>
-                    <p>Here are the scheduled irrigation tasks for your system. Monitor and manage irrigation times efficiently.</p>
+                <div class="input-card mb-4">
+                    <h4>Irrigation Recommendations</h4>
+                    <p>Enter the soil type and plant type to get irrigation recommendations based on real-time data.</p>
+
+                    <!-- Input Form -->
+                    <form id="irrigationForm" class="row g-3">
+                        <div class="col-md-6">
+                            <label for="soilType" class="form-label">Soil Type</label>
+                            <select id="soilType" class="form-select" required>
+                                <option value="">Select Soil Type</option>
+                                <option value="clayey">Clayey</option>
+                                <option value="loamy">Loamy</option>
+                                <option value="sandy">Sandy</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="plantType" class="form-label">Plant Type</label>
+                            <select id="plantType" class="form-select" required>
+                                <option value="">Select Plant Type</option>
+                                <option value="maize">Maize</option>
+                                <option value="cassava">Cassava</option>
+                                <option value="rice">Rice</option>
+                                <option value="tomato">Tomato</option>
+                                <option value="plantain">Plantain</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <button type="button" class="btn btn-success" onclick="getRecommendations()">Get Recommendations</button>
+                        </div>
+                    </form>
                 </div>
 
-                <!-- Irrigation Schedule Table -->
-                <table class="schedule-table table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Field</th>
-                            <th>Date</th>
-                            <th>Start Time</th>
-                            <th>Duration</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Field A</td>
-                            <td>Dec 6, 2024</td>
-                            <td>6:00 AM</td>
-                            <td>2 hours</td>
-                            <td><span class="badge bg-success">Scheduled</span></td>
-                            <td><button type="button" class="btn custom-btn btn-sm" data-bs-toggle="modal" data-bs-target="#detailsModal"style="background-color: #eaf7ec; color: #147b3d; border: none; border-radius: 5px; padding: 5px 10px;">Details</button>
-                        </tr>
-                        <tr>
-                            <td>Field B</td>
-                            <td>Dec 7, 2024</td>
-                            <td>5:30 AM</td>
-                            <td>1.5 hours</td>
-                            <td><span class="badge bg-warning text-dark">Pending</span></td>
-                            <td><button type="button" class="btn custom-btn btn-sm" data-bs-toggle="modal" data-bs-target="#detailsModal"style="background-color: #eaf7ec; color: #147b3d; border: none; border-radius: 5px; padding: 5px 10px;">Details</button>
-</td>
-                        </tr>
-                        <tr>
-                            <td>Field C</td>
-                            <td>Dec 8, 2024</td>
-                            <td>7:00 AM</td>
-                            <td>2.5 hours</td>
-                            <td><span class="badge bg-danger">Cancelled</span></td>
-                            <td><button type="button" class="btn custom-btn btn-sm" data-bs-toggle="modal" data-bs-target="#detailsModal"style="background-color: #eaf7ec; color: #147b3d; border: none; border-radius: 5px; padding: 5px 10px;">Details</button>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal for Details -->
-    <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="detailsModalLabel">Irrigation Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Details about the selected irrigation task will go here. Include information about water levels, field conditions, and any other relevant notes.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Take Action</button>
+                <!-- Recommendations Section -->
+                <div id="recommendations" class="recommendations mt-4" style="display: none;">
+                    <h5>Recommendations</h5>
+                    <p><strong>When to Irrigate:</strong> <span id="irrigationTime"></span></p>
+                    <p><strong>Water Quantity:</strong> <span id="waterQuantity"></span> liters</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript (Bootstrap and Dependencies) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/dashboard.js"></script>
+    <!-- JavaScript -->
+    <script>
+        function getRecommendations() {
+            const soilType = document.getElementById('soilType').value;
+            const plantType = document.getElementById('plantType').value;
+
+            if (!soilType || !plantType) {
+                alert('Please select both soil type and plant type.');
+                return;
+            }
+
+            // Simulating API call and rule-based logic
+            const recommendations = {
+                time: '6:00 AM',
+                water: 1000 // Example water quantity in liters
+            };
+
+            document.getElementById('irrigationTime').textContent = recommendations.time;
+            document.getElementById('waterQuantity').textContent = recommendations.water;
+
+            // Display the recommendations section
+            document.getElementById('recommendations').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
+
