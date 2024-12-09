@@ -92,22 +92,37 @@
 
                 <!-- Key Metrics Cards -->
                 <div class="row mb-4">
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="dashboard-card">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="text-muted mb-1">Current Soil Moisture</h6>
-                                    <h3 class="mb-0">45%</h3>
-                                    <small class="text-danger">
-                                        <i class='bx bx-down-arrow-alt'></i> Below optimal
-                                    </small>
-                                </div>
-                                <div class="fs-1 text-success">
-                                    <i class='bx bx-droplet'></i>
+                    <div class="row mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="dashboard-card">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="text-muted mb-1">Soil Moisture</h6>
+                                        <?php include '../api.php/soilMoistureApi.php';
+                                        if (isset($soilMoisture) && $soilMoisture !== null): ?>
+                                        <h3 class="mb-0"><?php echo round($soilMoisture * 100, 1); ?>%</h3>
+                                        <?php if ($soilMoisture < 0.3): ?>
+                                        <small class="text-danger">
+                                            <i class='bx bx-down-arrow-alt'></i> Below optimal
+                                        </small>
+                                        <?php else: ?>
+                                        <small class="text-success">
+                                            <i class='bx bx-up-arrow-alt'></i> Optimal
+                                        </small>
+                                        <?php endif; ?>
+                                        <?php else: ?>
+                                        <h3 class="mb-0">N/A</h3>
+                                        <small class="text-muted">Data unavailable</small>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="fs-1 text-success">
+                                        <i class='bx bx-droplet'></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="dashboard-card">
