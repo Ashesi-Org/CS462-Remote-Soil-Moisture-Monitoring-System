@@ -158,8 +158,11 @@ jobs:
                -e "s|joelkodji/eco-go:frontend-.*|joelkodji/eco-go:frontend-${{ github.sha }}|" \
                kubernetes/*.yaml
 
-        # Apply critical resources first
-        kubectl apply -f kubernetes/configmap.yaml --validate=true
+        # Verify cluster connection
+        kubectl cluster-info
+
+        # Apply critical resources first with validation disabled for initial deployment
+        kubectl apply -f kubernetes/configmap.yaml --validate=false
         kubectl apply -f kubernetes/postgres.yaml
         kubectl apply -f kubernetes/pgadmin.yaml
         
