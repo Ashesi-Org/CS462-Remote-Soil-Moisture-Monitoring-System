@@ -18,5 +18,35 @@ The Remote Soil Moisture Monitoring System is a smart solution designed to help 
 - **Testing:** PHPUnit for PHP scripts and Selenium for browser testing.  
 - **Continuous Integration/Delivery:** GitHub Actions for automated pipelines.  
 
- 
-  
+## Continuous Integration (CI) Pipeline
+
+Our project implements a robust CI pipeline using GitHub Actions to ensure code quality and reliability. The pipeline automatically runs whenever code changes are pushed to the main branch or pull requests are created.
+
+### CI Pipeline Features
+
+- **Automated Testing**: Runs PHPUnit tests to verify code functionality
+- **Code Quality Checks**: 
+  - PHP Code Sniffer (PSR-12 standard)
+  - PHP-CS-Fixer for automatic code style fixes
+  - Basic PHP syntax validation
+- **Dependency Management**: Automated Composer package installation and updates
+- **Environment Setup**: Configures PHP 8.3 with required extensions
+
+### CI Pipeline Status
+
+![GitHub Actions CI Pipeline](image.png)
+
+### Pipeline Configuration
+
+Our CI pipeline is configured in `.github/workflows/ci.yml` and includes:
+
+1. Code checkout
+2. PHP environment setup
+3. Dependency installation
+4. Code quality analysis
+5. Automated testing
+6. Build verification
+
+For detailed configuration, see our [CI workflow file](.github/workflows/ci.yml).
+
+
