@@ -8,4 +8,9 @@ data:
   POSTGRES_HOST: "postgres-service"
   POSTGRES_PORT: "5432"
   PHP_ENV: "production"
-  WEATHER_API_URL: "https://api.open-meteo.com/v1/forecast" 
+  WEATHER_API_URL: "https://api.open-meteo.com/v1/forecast"
+envFrom:
+  - configMapRef:
+      name: app-config
+  - secretRef:
+      name: postgres-secret
