@@ -24,22 +24,22 @@ spec:
             cpu: 200m
             memory: 256Mi
         env:
-        - name: DB_HOST
+        - name: POSTGRES_HOST
           valueFrom:
             configMapKeyRef:
               name: app-config
               key: DB_HOST
-        - name: DB_NAME
+        - name: POSTGRES_DB
           valueFrom:
             configMapKeyRef:
               name: app-config
               key: DB_NAME
-        - name: DB_USER
+        - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
               name: postgres-secret
               key: POSTGRES_USER
-        - name: DB_PASSWORD
+        - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               name: postgres-secret

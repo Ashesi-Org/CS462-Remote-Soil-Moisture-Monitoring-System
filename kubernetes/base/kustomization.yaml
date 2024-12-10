@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - backend.yaml
   - frontend.yaml
-  - postgres.yaml
+  - postgres-statefulset.yaml
   - configmap.yaml
   - pgadmin-deployment.yaml
   - ingress.yaml
