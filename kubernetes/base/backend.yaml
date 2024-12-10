@@ -5,10 +5,12 @@ metadata:
 spec:
   selector:
     matchLabels:
+      app: eco-go
       component: backend
   template:
     metadata:
       labels:
+        app: eco-go
         component: backend
     spec:
       containers:

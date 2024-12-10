@@ -7,10 +7,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      app: eco-go
       component: postgres
   template:
     metadata:
       labels:
+        app: eco-go
         component: postgres
     spec:
       containers:
@@ -60,6 +62,7 @@ metadata:
   name: postgres-service
 spec:
   selector:
+    app: eco-go
     component: postgres
   ports:
   - port: 5432
