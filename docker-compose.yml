@@ -55,5 +55,26 @@ services:
       postgres:
         condition: service_healthy
 
+  selenium:
+    image: selenium/standalone-chrome:latest
+    ports:
+      - "4444:4444"
+    shm_size: "2g"
+    environment:
+      - SE_NODE_MAX_SESSIONS=5
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+    depends_on:
+      - frontend
+
+  frontend-test:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile.test
+    volumes:
+      - ./frontend:/var/www/html
+    command: composer test:selenium
+    depends_on:
+      - selenium
+
 volumes:
   postgres_data:

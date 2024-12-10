@@ -26,3 +26,6 @@ nbproject/
 
 # Ignore PHPUnit cache
 .phpunit.result.cache
+
+# Ignore nginx configuration file
+/frontend/nginx.conf
