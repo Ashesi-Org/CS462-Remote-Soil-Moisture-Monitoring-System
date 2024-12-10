@@ -15,11 +15,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pgadmin
+      component: pgadmin
   template:
     metadata:
       labels:
-        app: pgadmin
+        component: pgadmin
     spec:
       containers:
       - name: pgadmin-container
@@ -51,7 +51,7 @@ metadata:
   name: pgadmin-service
 spec:
   selector:
-    app: pgadmin
+    component: pgadmin
   ports:
   - port: 80
     targetPort: 80
