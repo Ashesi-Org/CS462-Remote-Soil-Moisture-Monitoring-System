@@ -15,10 +15,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      app: eco-go
       component: pgadmin
   template:
     metadata:
       labels:
+        app: eco-go
         component: pgadmin
     spec:
       containers:
@@ -51,6 +53,7 @@ metadata:
   name: pgadmin-service
 spec:
   selector:
+    app: eco-go
     component: pgadmin
   ports:
   - port: 80
