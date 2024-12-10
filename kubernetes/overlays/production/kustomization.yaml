@@ -5,9 +5,12 @@ resources:
   - ../../base
 
 images:
-  - name: joelkodji/eco-go
+  - name: joelkodji/eco-go:backend
     newName: joelkodji/eco-go
-    newTag: latest
+    newTag: backend-latest
+  - name: joelkodji/eco-go:frontend
+    newName: joelkodji/eco-go
+    newTag: frontend-latest
 
 patches:
   - target:
