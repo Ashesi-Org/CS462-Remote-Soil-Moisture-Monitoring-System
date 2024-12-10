@@ -23,6 +23,11 @@ if (strpos($request_uri, 'auth/register.php') !== false) {
     exit;
 }
 
+if (strpos($request_uri, 'auth/login.php') !== false) {
+    require __DIR__ . '/api/auth/login.php';
+    exit;
+}
+
 // Default response for unmatched routes
 http_response_code(404);
 echo json_encode(['error' => 'Not Found', 'uri' => $request_uri]);

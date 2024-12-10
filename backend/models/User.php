@@ -38,4 +38,37 @@ class User {
         $stmt->execute();
         return $stmt->rowCount() > 0;
     }
+
+    public function login($email, $password) {
+        try {
+            // Sanitize email
+            $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+            
+            $query = "SELECT id, full_name, email, password_hash FROM " . $this->table . " WHERE email = :email";
+            $stmt = $this->conn->prepare($query);
+            
+            if (!$stmt) {
+                throw new Exception("Database prepare failed");
+            }
+            
+            $stmt->bindParam(":email", $email);
+            
+            if (!$stmt->execute()) {
+                throw new Exception("Query execution failed");
+            }
+            
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($user && password_verify($password, $user['password_hash'])) {
+                // Remove password hash before returning
+                unset($user['password_hash']);
+                return $user;
+            }
+            
+            return false;
+        } catch (Exception $e) {
+            error_log("Login error: " . $e->getMessage());
+            throw $e;
+        }
+    }
 } 
