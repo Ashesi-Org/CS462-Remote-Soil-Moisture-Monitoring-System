@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: frontend
 spec:
-  progressDeadlineSeconds: 1200
-  replicas: 2
   selector:
     matchLabels:
       app: frontend
@@ -20,11 +18,11 @@ spec:
         - containerPort: 80
         resources:
           requests:
-            cpu: 250m
-            memory: 256Mi
+            cpu: 100m
+            memory: 128Mi
           limits:
-            cpu: 500m
-            memory: 512Mi
+            cpu: 200m
+            memory: 256Mi
         startupProbe:
           httpGet:
             path: /
