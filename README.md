@@ -34,7 +34,7 @@ Our project implements a robust CI pipeline using GitHub Actions to ensure code 
 
 ### CI Pipeline Status
 
-![GitHub Actions CI Pipeline](image.png)
+![GitHub Actions CI Pipeline](docs/image.png)
 
 ### Pipeline Configuration
 
@@ -49,7 +49,7 @@ Our CI pipeline is configured in `.github/workflows/ci.yml` and includes:
 
 For detailed configuration, see our [CI workflow file](.github/workflows/ci.yml).
 
-## Deployment Architecture
+## Continuous Deployment (CD) Pipeline
 
 Our project utilizes a robust deployment architecture combining Google Kubernetes Engine (GKE), Docker, and Kustomize for configuration management.
 
@@ -60,14 +60,14 @@ Our project utilizes a robust deployment architecture combining Google Kubernete
    - Configured cluster in us-central1 zone for optimal performance
    - Set up IAM roles and permissions for team collaboration
    
-   ![GKE cluster dashboard showing the eco-go-cluster with its configuration](image-1.png)
+   ![GKE cluster dashboard showing the eco-go-cluster with its configuration](docs/image-1.png)
 
 2. **Container Registry Setup**
    - Established Docker Hub repository for container images
    - Created service accounts and authentication tokens
    - Configured secure access between GitHub Actions and cloud services
 
-   ![Docker Hub repository showing our container images](image-2.png)
+   ![Docker Hub repository showing our container images](docs/image-2.png)
 
 ### Container Architecture
 
@@ -114,8 +114,8 @@ kubernetes/
     └── production/
 ```
 
-![Successful Kustomize deployment](image-3.png)
-![Successful Kustomize deployment showing the status of all pods](image-4.png)
+![Successful Kustomize deployment](docs/image-3.png)
+![Successful Kustomize deployment showing the status of all pods](docs/image-4.png)
 
 ### Deployment Process
 
@@ -127,9 +127,48 @@ Our deployment process is fully automated through GitHub Actions:
 4. GKE cluster receives the updated configurations
 5. Kubernetes handles the rolling deployment
 
-[Screenshot Placeholder 4: GitHub Actions showing a successful deployment workflow]
 
 For detailed configuration, see our [CI/CD workflow file](.github/workflows/ci-cd.yml).
+
+## Continuous Monitoring
+
+Our project utilizes Google Cloud's Managed Service for Prometheus (GMP) for comprehensive monitoring and observability.
+
+### Monitoring Architecture
+
+- **Metrics Collection**: Automated collection of system and application metrics
+- **Performance Monitoring**: Real-time tracking of:
+  - Container CPU and memory usage
+  - Request latency and throughput
+  - Error rates and system health
+- **Alert Management**: Automated alerting for system anomalies
+
+### Monitoring Dashboard
+
+Access our monitoring metrics through Google Cloud Console:
+1. Navigate to Monitoring → Metrics Explorer
+2. View predefined GKE dashboards
+3. Access custom Prometheus metrics
+
+![GCP Metrics Explorer showing container metrics](docs/gcp_metrics.png)
+
+### Key Metrics Monitored
+
+- Container resource utilization
+![alt text](docs/image-5.png)
+
+- API endpoint performance
+![alt text](docs/image-6.png)
+
+- Database connection health
+![alt text](docs/image-8.png)
+
+- Error rates and response times
+![alt text](docs/image-7.png)
+
+Alerting is also enabled for critical metrics, ensuring timely notifications for system anomalies.
+![alt text](docs/image-9.png)
+![alt text](docs/image-10.png)
 
 
 
