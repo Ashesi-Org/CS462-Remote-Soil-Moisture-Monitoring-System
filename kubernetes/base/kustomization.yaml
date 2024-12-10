@@ -11,5 +11,3 @@ resources:
 
 commonLabels:
   app: eco-go
-
-namePrefix: eco-go-

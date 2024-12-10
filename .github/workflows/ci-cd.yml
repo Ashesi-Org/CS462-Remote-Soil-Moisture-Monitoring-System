@@ -154,6 +154,6 @@ jobs:
         kubectl apply -k kubernetes/overlays/production
 
         # Verify deployments
-        kubectl rollout status deployment/eco-go-backend
-        kubectl rollout status deployment/eco-go-frontend
-        kubectl rollout status deployment/eco-go-pgadmin
+        kubectl rollout status deployment/backend
+        kubectl rollout status deployment/frontend
+        kubectl rollout status deployment/pgadmin
