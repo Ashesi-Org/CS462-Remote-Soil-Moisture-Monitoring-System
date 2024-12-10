@@ -20,46 +20,49 @@ spec:
       storage: 10Gi
 ---
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: postgres
 spec:
-  serviceName: postgres-service
-  replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      component: postgres
   template:
     metadata:
       labels:
-        app: postgres
+        component: postgres
     spec:
-      securityContext:
-        fsGroup: 999
-        runAsUser: 999
-        runAsGroup: 999
       containers:
       - name: postgres
         image: postgres:15
-        env:
-        - name: PGDATA
-          value: /var/lib/postgresql/data/pgdata
-        envFrom:
-        - secretRef:
-            name: postgres-secret
         ports:
         - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_DB
         resources:
           requests:
-            cpu: 250m
-            memory: 512Mi
+            cpu: 100m
+            memory: 256Mi
           limits:
             cpu: 500m
-            memory: 1Gi
+            memory: 512Mi
         volumeMounts:
         - name: postgres-storage
           mountPath: /var/lib/postgresql/data
-          subPath: pgdata
       volumes:
       - name: postgres-storage
         persistentVolumeClaim:
@@ -71,7 +74,8 @@ metadata:
   name: postgres-service
 spec:
   selector:
-    app: postgres
+    component: postgres
   ports:
   - port: 5432
-    targetPort: 5432 
+    targetPort: 5432
+  type: ClusterIP
