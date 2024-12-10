@@ -28,6 +28,13 @@ if (strpos($request_uri, 'auth/login.php') !== false) {
     exit;
 }
 
+// Health check endpoint
+if ($_SERVER['REQUEST_URI'] === '/api/health') {
+    header('Content-Type: application/json');
+    echo json_encode(['status' => 'healthy']);
+    exit;
+}
+
 // Default response for unmatched routes
 http_response_code(404);
 echo json_encode(['error' => 'Not Found', 'uri' => $request_uri]);
