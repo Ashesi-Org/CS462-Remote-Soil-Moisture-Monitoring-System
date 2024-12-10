@@ -2,13 +2,14 @@ FROM php:8.3-apache
 
 WORKDIR /var/www/html
 
-# Install system dependencies
+# Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
     libpq-dev \
+    libcurl4-openssl-dev \
     zip \
     unzip \
     git \
-    && docker-php-ext-install pdo pdo_pgsql
+    && docker-php-ext-install pdo pdo_pgsql curl
 
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

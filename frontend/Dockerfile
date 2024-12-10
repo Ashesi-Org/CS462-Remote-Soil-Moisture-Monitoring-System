@@ -6,7 +6,7 @@ WORKDIR /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy static files
-COPY . .
+COPY public/ .
 
 # Add health check
 HEALTHCHECK --interval=30s --timeout=3s \

@@ -1,0 +1,107 @@
+body {
+    background-color: #f8f9fa;
+}
+
+/* Header Styles */
+header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #198754;
+    color: white;
+}
+
+header img {
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Form Section */
+.card {
+    border: 2px solid #8B4513;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-success {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.btn-success:hover {
+    background-color: #155d40;
+    border-color: #155d40;
+}
+
+/* Image Container Styles */
+.image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.polaroid {
+    position: absolute;
+    width: 300px;
+    height: auto;
+    border: 10px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: white;
+}
+
+.polaroid img {
+    width: 100%;
+    height: auto;
+}
+
+.polaroid:nth-child(1) {
+    transform: rotate(-10deg);
+    z-index: 1;
+    left: -300px;
+}
+
+.polaroid:nth-child(2) {
+    transform: rotate(10deg);
+    z-index: 2;
+    right: -220px;
+}
+
+/* Password Strength Meter */
+.password-strength-container {
+    width: 100%;
+    height: 4px;
+    background-color: #e0e0e0;
+    margin-top: 5px;
+    border-radius: 2px;
+}
+
+.password-strength-meter {
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease-in-out;
+    border-radius: 2px;
+}
+
+.password-strength-meter.weak { background-color: #ff4444; }
+.password-strength-meter.medium { background-color: #ffa700; }
+.password-strength-meter.strong { background-color: #00C851; }
+
+/* Error Message */
+.error-message {
+    display: none;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
