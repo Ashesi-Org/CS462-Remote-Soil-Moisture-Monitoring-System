@@ -49,4 +49,87 @@ Our CI pipeline is configured in `.github/workflows/ci.yml` and includes:
 
 For detailed configuration, see our [CI workflow file](.github/workflows/ci.yml).
 
+## Deployment Architecture
+
+Our project utilizes a robust deployment architecture combining Google Kubernetes Engine (GKE), Docker, and Kustomize for configuration management.
+
+### Infrastructure Setup
+
+1. **Google Kubernetes Engine (GKE)**
+   - Created a new GKE cluster in Google Cloud Platform
+   - Configured cluster in us-central1 zone for optimal performance
+   - Set up IAM roles and permissions for team collaboration
+   
+   ![GKE cluster dashboard showing the eco-go-cluster with its configuration](image-1.png)
+
+2. **Container Registry Setup**
+   - Established Docker Hub repository for container images
+   - Created service accounts and authentication tokens
+   - Configured secure access between GitHub Actions and cloud services
+
+   ![Docker Hub repository showing our container images](image-2.png)
+
+### Container Architecture
+
+Our application runs on four main containers:
+
+1. **Frontend Container**
+   - Nginx-based web server
+   - Serves static content and handles routing
+   - Resources: 128Mi-256Mi memory, 100m-200m CPU
+
+2. **Backend Container**
+   - PHP 8.3 with Apache
+   - Handles API requests and business logic
+   - Resources: 128Mi-512Mi memory, 100m-200m CPU
+
+3. **PostgreSQL Container**
+   - Database server (PostgreSQL 15)
+   - Persistent storage with 10Gi volume
+   - Resources: 1Gi-2Gi memory, 500m-1000m CPU
+
+4. **PgAdmin Container**
+   - Database management interface
+   - Resources: 128Mi-256Mi memory, 100m-200m CPU
+
+### Configuration Management with Kustomize
+
+Kustomize serves as our configuration management tool, providing:
+
+- Resource customization without template modification
+- Consistent deployment across environments
+- Label and selector management
+
+Our Kustomize structure:
+
+```yaml
+kubernetes/
+├── base/                 # Base configurations
+│   ├── backend.yaml
+│   ├── frontend.yaml
+│   ├── postgres-statefulset.yaml
+│   └── pgadmin-deployment.yaml
+└── overlays/            # Environment-specific configs
+    ├── development/
+    └── production/
+```
+
+![Successful Kustomize deployment](image-3.png)
+![Successful Kustomize deployment showing the status of all pods](image-4.png)
+
+### Deployment Process
+
+Our deployment process is fully automated through GitHub Actions:
+
+1. Code changes trigger the CI/CD pipeline
+2. Docker images are built and pushed to Docker Hub
+3. Kustomize updates the deployment configurations
+4. GKE cluster receives the updated configurations
+5. Kubernetes handles the rolling deployment
+
+[Screenshot Placeholder 4: GitHub Actions showing a successful deployment workflow]
+
+For detailed configuration, see our [CI/CD workflow file](.github/workflows/ci-cd.yml).
+
+
 
