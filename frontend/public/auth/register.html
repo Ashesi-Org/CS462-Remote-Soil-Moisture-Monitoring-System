@@ -1,86 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/auth.css">
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/auth.css" />
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-0G4TRY3MK5"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-<body>
+      gtag("config", "G-0G4TRY3MK5");
+    </script>
+  </head>
+
+  <body>
     <!-- Header -->
     <header>
-        <img src="../images/logo.png" alt="System Logo">
-        <h1>Smart Irrigation System</h1>
+      <img src="../images/logo.png" alt="System Logo" />
+      <h1>Smart Irrigation System</h1>
     </header>
 
     <!-- Main Section -->
-    <div class="container d-flex justify-content-center align-items-center vh-100">
-        <div class="row w-100 align-items-center">
-            <!-- Image Section -->
-            <div class="col-lg-6 d-flex justify-content-center align-items-center">
-                <div class="image-container">
-                    <div class="polaroid">
-                        <img src="../images/happyfarmer2.png" alt="Farm Background">
-                    </div>
-                    <div class="polaroid">
-                        <img src="../images/happyfarmer.png" alt="Happy Farmer">
-                    </div>
-                </div>
+    <div
+      class="container d-flex justify-content-center align-items-center vh-100"
+    >
+      <div class="row w-100 align-items-center">
+        <!-- Image Section -->
+        <div class="col-lg-6 d-flex justify-content-center align-items-center">
+          <div class="image-container">
+            <div class="polaroid">
+              <img src="../images/happyfarmer2.png" alt="Farm Background" />
             </div>
-
-            <!-- Form Section -->
-            <div class="col-lg-6">
-                <div class="card shadow p-4">
-                    <h3 class="text-center mb-4 text-success">Create an Account</h3>
-                    <form id="registerForm">
-                        <div class="mb-3">
-                            <label for="fullName" class="form-label">Full Name</label>
-                            <input type="text" id="fullName" class="form-control" placeholder="Enter your full name"
-                                required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" id="password" class="form-control" placeholder="Create a password"
-                                required>
-                            <div class="password-strength-container">
-                                <div id="password-strength" class="password-strength-meter"></div>
-                            </div>
-                            <small class="text-muted">
-                                Password must contain:
-                                <ul class="mt-1 mb-0">
-                                    <li>At least 8 characters</li>
-                                    <li>One uppercase letter</li>
-                                    <li>One lowercase letter</li>
-                                    <li>One number</li>
-                                    <li>One special character (!@#$%^&*)</li>
-                                </ul>
-                            </small>
-                        </div>
-                        <div class="mb-3">
-                            <label for="confirmPassword" class="form-label">Confirm Password</label>
-                            <input type="password" id="confirmPassword" class="form-control"
-                                placeholder="Confirm your password" required>
-                        </div>
-                        <div id="error-message" class="error-message mb-3"></div>
-                        <button type="submit" class="btn btn-success w-100">Register</button>
-                    </form>
-                    <div class="text-center mt-3">
-                        <p>Already have an account? <a href="login.html" class="text-success">Login here</a></p>
-                    </div>
-                </div>
+            <div class="polaroid">
+              <img src="../images/happyfarmer.png" alt="Happy Farmer" />
             </div>
+          </div>
         </div>
+
+        <!-- Form Section -->
+        <div class="col-lg-6">
+          <div class="card shadow p-4">
+            <h3 class="text-center mb-4 text-success">Create an Account</h3>
+            <form id="registerForm">
+              <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input
+                  type="text"
+                  id="fullName"
+                  class="form-control"
+                  placeholder="Enter your full name"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  class="form-control"
+                  placeholder="Create a password"
+                  required
+                />
+                <div class="password-strength-container">
+                  <div
+                    id="password-strength"
+                    class="password-strength-meter"
+                  ></div>
+                </div>
+                <small class="text-muted">
+                  Password must contain:
+                  <ul class="mt-1 mb-0">
+                    <li>At least 8 characters</li>
+                    <li>One uppercase letter</li>
+                    <li>One lowercase letter</li>
+                    <li>One number</li>
+                    <li>One special character (!@#$%^&*)</li>
+                  </ul>
+                </small>
+              </div>
+              <div class="mb-3">
+                <label for="confirmPassword" class="form-label"
+                  >Confirm Password</label
+                >
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  class="form-control"
+                  placeholder="Confirm your password"
+                  required
+                />
+              </div>
+              <div id="error-message" class="error-message mb-3"></div>
+              <button type="submit" class="btn btn-success w-100">
+                Register
+              </button>
+            </form>
+            <div class="text-center mt-3">
+              <p>
+                Already have an account?
+                <a href="login.html" class="text-success">Login here</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/register.js"></script>
-</body>
-
+  </body>
 </html>
