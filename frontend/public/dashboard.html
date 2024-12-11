@@ -119,6 +119,7 @@
                         </div>
                     </div>
 
+
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="dashboard-card h-100">
                             <div class="d-flex justify-content-between align-items-center">
@@ -302,29 +303,6 @@
             }
         },
         colors: ['#198754'],
-        xaxis: {
-            categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        }
-    });
-    irrigationChart.render();
-
-    // Historical Trends Chart
-    const trendsChart = new ApexCharts(document.querySelector("#trendsChart"), {
-        series: [{
-            name: 'Actual',
-            data: [31, 40, 28, 51, 42, 109, 100]
-        }, {
-            name: 'Predicted',
-            data: [11, 32, 45, 32, 34, 52, 41]
-        }],
-        chart: {
-            height: 250,
-            type: 'line',
-            toolbar: {
-                show: false
-            }
-        },
-        colors: ['#198754', '#ffc107'],
         xaxis: {
             categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
         }
