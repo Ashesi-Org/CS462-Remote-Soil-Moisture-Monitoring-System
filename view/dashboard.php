@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../frontend/public/css/dashboard.css">
 
 
 </head>
@@ -186,35 +186,8 @@
                     <div class="col-lg-4 mb-4">
                         <div class="dashboard-card">
                             <h4>Weather Forecast</h4>
-                            <?php include '../api.php/weatherApi.php'; ?>
-                            <!-- <div class="d-flex align-items-center mb-4">
-                                <i class='bx bx-sun weather-icon'></i>
-                                <div class="ms-3">
-                                    <h2 class="mb-0">28°C</h2>
-                                    <p class="mb-0">Sunny</p>
-                                </div>
-                            </div>
-                            <div class="weather-forecast">
-                                <div class="row g-0">
-                                    <?php
-                                    /*$forecasts = [
-                                        ['day' => 'Mon', 'temp' => '24°', 'icon' => 'bx-sun'],
-                                        ['day' => 'Tue', 'temp' => '23°', 'icon' => 'bx-cloud'],
-                                        ['day' => 'Wed', 'temp' => '25°', 'icon' => 'bx-sun'],
-                                        ['day' => 'Thu', 'temp' => '22°', 'icon' => 'bx-cloud-rain'],
-                                    ];
-
-                                    foreach ($forecasts as $forecast) {
-                                        echo "
-                                        <div class='col-3 text-center'>
-                                            <small class='text-muted'>{$forecast['day']}</small>
-                                            <i class='bx {$forecast['icon']} d-block my-2'></i>
-                                            <small>{$forecast['temp']}</small>
-                                        </div>";
-                                    }*/
-                                    ?>
-                                </div>
-                            </div> -->
+                            <?php include '../api.php/weatherApi.php';
+                             ?>
                         </div>
                     </div>
                 </div>
@@ -336,7 +309,7 @@
     const moistureChart = new ApexCharts(document.querySelector("#moistureChart"), {
         series: [{
             name: 'Moisture Level',
-            data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+            data: [0.30, 0.32, 0.35, 0.31, 0.29, 0.21, 0.20, 0.15, 0.12, 0.14, 0.1, 0.097]
         }],
         chart: {
             height: 350,
@@ -356,7 +329,7 @@
             }
         },
         xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         }
     });
     moistureChart.render();

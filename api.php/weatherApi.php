@@ -61,7 +61,7 @@ $weatherData = fetchCurrentWeather($lat, $lon);
     #current-weather .temperature {
         font-size: 40px;
         font-weight: bold;
-        color: #1e90ff;
+        color: green;
     }
 
     #current-weather .description {
@@ -87,6 +87,8 @@ $weatherData = fetchCurrentWeather($lat, $lon);
         #current-weather .temperature {
             font-size: 36px;
         }
+
+
     }
     </style>
 </head>
@@ -95,7 +97,7 @@ $weatherData = fetchCurrentWeather($lat, $lon);
 
     <?php
     if ($weatherData && $weatherData['cod'] === 200) {
-        $temperature°C = $weatherData['main']['temp'];
+        $temperature°C = round($weatherData['main']['temp']); ;
         $description = ucfirst($weatherData['weather'][0]['description']);
         $humidity = $weatherData['main']['humidity'];
         $windSpeed = $weatherData['wind']['speed'];
@@ -105,7 +107,7 @@ $weatherData = fetchCurrentWeather($lat, $lon);
         echo "<div id='current-weather'>";
         echo "<h2>Current Weather</h2>";
         echo "<div class='weather-icon'><img src='$iconUrl' alt='$description'></div>";  // Display weather icon
-        echo "<p class='temperature'>$temperature°C</p>";  // Display temperature
+        echo "<p class='temperature'>{$temperature°C}°C</p>";  // Display temperature
         echo "<p class='description'>$description</p>";  // Weather condition description
         echo "<div class='additional-info'>";
         echo "<p><strong>Humidity:</strong> $humidity%</p>";
