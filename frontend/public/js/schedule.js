@@ -20,6 +20,8 @@ class ScheduleManager {
     // Setup event listeners
     this.setupGenerateScheduleForm();
     this.setupLocationButton();
+    this.setupProgressModal();
+    this.setupEventListeners();
     
     // Load initial data
     await this.loadCurrentSchedule();
@@ -87,15 +89,12 @@ class ScheduleManager {
   }
 
   setupProgressModal() {
-    this.progressModal = new bootstrap.Modal(
-      document.getElementById("progressModal")
-    );
     const waterInput = document.getElementById("waterApplied");
+    if (!waterInput) return;
 
     waterInput.addEventListener("input", (e) => {
       const applied = parseFloat(e.target.value) || 0;
-      const target =
-        parseFloat(document.getElementById("targetWater").dataset.target) || 1;
+      const target = parseFloat(document.getElementById("targetWater").dataset.target) || 1;
       const percentage = Math.min((applied / target) * 100, 100);
 
       const progressBar = document.getElementById("progressBar");
@@ -105,9 +104,10 @@ class ScheduleManager {
   }
 
   setupEventListeners() {
-    document
-      .getElementById("saveProgress")
-      .addEventListener("click", () => this.saveProgress());
+    const saveButton = document.getElementById("saveProgress");
+    if (!saveButton) return;
+
+    saveButton.addEventListener("click", () => this.saveProgress());
   }
 
   async loadCurrentSchedule() {
@@ -143,7 +143,16 @@ class ScheduleManager {
             <td>${new Date(item.datetime).toLocaleString()}</td>
             <td>${item.plant_type}</td>
             <td>${item.field_size} ha</td>
-            <td>${item.water_amount.toLocaleString()} L</td>
+            <td>
+                ${item.water_amount.toLocaleString()} L
+                ${item.notes ? `
+                    <div class="mt-1">
+                        <small class="text-muted">
+                            <i class='bx bx-note'></i> ${item.notes}
+                        </small>
+                    </div>
+                ` : ''}
+            </td>
             <td>
                 <div class="d-flex align-items-center">
                     <i class="bx ${this.getWeatherIcon(item.weather_code)}"></i>
@@ -170,7 +179,7 @@ class ScheduleManager {
             <td>
                 ${item.status === "pending" ? `
                     <button class="btn btn-sm btn-outline-success" 
-                            onclick="scheduleManager.openProgressModal('${item.id}', ${item.water_amount}, ${item.water_applied})">
+                            onclick="scheduleManager.openProgressModal('${item.id}', ${item.water_amount}, ${item.water_applied}, '${item.notes || ''}')">
                         Update Progress
                     </button>
                 ` : ''}
@@ -179,15 +188,17 @@ class ScheduleManager {
     `).join('');
   }
 
-  openProgressModal(scheduleId, targetAmount, currentAmount = 0) {
+  openProgressModal(scheduleId, targetAmount, currentAmount = 0, notes = '') {
     const waterInput = document.getElementById("waterApplied");
     const targetWater = document.getElementById("targetWater");
     const progressBar = document.getElementById("progressBar");
+    const notesInput = document.getElementById("progressNotes");
 
     waterInput.value = currentAmount;
     waterInput.max = targetAmount;
     targetWater.textContent = targetAmount.toLocaleString();
     targetWater.dataset.target = targetAmount;
+    notesInput.value = notes;
 
     const percentage = Math.min((currentAmount / targetAmount) * 100, 100);
     progressBar.style.width = `${percentage}%`;
@@ -200,9 +211,7 @@ class ScheduleManager {
   async saveProgress() {
     const form = document.getElementById("progressForm");
     const scheduleId = form.dataset.scheduleId;
-    const waterApplied = parseFloat(
-      document.getElementById("waterApplied").value
-    );
+    const waterApplied = parseFloat(document.getElementById("waterApplied").value);
     const notes = document.getElementById("progressNotes").value;
 
     if (!waterApplied || waterApplied < 0) {
@@ -211,6 +220,12 @@ class ScheduleManager {
     }
 
     try {
+      // Track progress update attempt
+      gtag('event', 'progress_update_attempt', {
+        'schedule_id': scheduleId,
+        'water_amount': waterApplied
+      });
+
       const response = await fetch("/api/schedule.php", {
         method: "PATCH",
         headers: {
@@ -225,9 +240,21 @@ class ScheduleManager {
 
       if (!response.ok) throw new Error("Failed to update progress");
 
+      // Track successful progress update
+      gtag('event', 'progress_update_success', {
+        'schedule_id': scheduleId,
+        'water_amount': waterApplied
+      });
+
       await this.loadCurrentSchedule();
       this.progressModal.hide();
     } catch (error) {
+      // Track progress update error
+      gtag('event', 'progress_update_error', {
+        'error_type': error.message,
+        'schedule_id': scheduleId
+      });
+
       console.error("Error saving progress:", error);
       alert("Failed to save progress. Please try again.");
     }
