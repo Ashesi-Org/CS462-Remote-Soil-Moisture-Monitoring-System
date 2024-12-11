@@ -28,6 +28,13 @@ if (strpos($request_uri, 'auth/login.php') !== false) {
     exit;
 }
 
+// Health check endpoint
+if ($_SERVER['REQUEST_URI'] === '/api/health') {
+    header('Content-Type: application/json');
+    echo json_encode(['status' => 'healthy']);
+    exit;
+}
+
 // Add this new route
 if (strpos($request_uri, 'user/update-profile.php') !== false) {
     require __DIR__ . '/api/user/update-profile.php';

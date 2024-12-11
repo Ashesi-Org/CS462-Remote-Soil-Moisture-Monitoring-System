@@ -11,9 +11,21 @@
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../frontend/public/css/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-G4Q56PYSQ5"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-
+      gtag("config", "G-G4Q56PYSQ5");
+    </script>
 </head>
 
 <body>
@@ -354,7 +366,29 @@
     });
     trendsChart.render();
     </script>
-    <script src="../public/js/dashboard.js"></script>
-    <script src="../assets/js/weatherApi.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+    <script>
+    // Track chart interactions
+    document.querySelector("#moistureChart").addEventListener('click', function() {
+        gtag('event', 'chart_interaction', {
+            'chart_type': 'moisture'
+        });
+    });
+
+    // Track activity views
+    document.querySelector(".activity-list").addEventListener('click', function() {
+        gtag('event', 'view_activity', {
+            'type': 'recent_activity'
+        });
+    });
+
+    // Track system status checks
+    document.querySelector(".dashboard-card").addEventListener('click', function() {
+        gtag('event', 'check_status', {
+            'status': 'system_health'
+        });
+    });
+    </script>
+</body>
 
 </html>

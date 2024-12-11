@@ -18,9 +18,10 @@
       rel="stylesheet"
     />
     <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
     <script
       async
-      src="https://www.googletagmanager.com/gtag/js?id=G-0G4TRY3MK5"
+      src="https://www.googletagmanager.com/gtag/js?id=G-G4Q56PYSQ5"
     ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -29,7 +30,7 @@
       }
       gtag("js", new Date());
 
-      gtag("config", "G-0G4TRY3MK5");
+      gtag("config", "G-G4Q56PYSQ5");
     </script>
 
     <style>
@@ -347,6 +348,52 @@
       }
 
       setHeroBackground("../images/543212762.jpg");
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Track CTA button clicks
+        document.querySelector('.btn-success')?.addEventListener('click', function() {
+          gtag('event', 'cta_click', {
+            'button_type': 'get_started',
+            'location': 'hero_section'
+          });
+        });
+
+        document.querySelector('.btn-outline-light')?.addEventListener('click', function() {
+          gtag('event', 'cta_click', {
+            'button_type': 'learn_more',
+            'location': 'hero_section'
+          });
+        });
+
+        // Track feature card views
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              gtag('event', 'view_feature', {
+                'feature_name': entry.target.querySelector('h3').textContent
+              });
+              observer.unobserve(entry.target);
+            }
+          });
+        });
+
+        // Observe feature cards
+        document.querySelectorAll('.step-card').forEach(card => {
+          observer.observe(card);
+        });
+
+        // Track statistics section views
+        document.querySelectorAll('.stat-item').forEach(stat => {
+          stat.addEventListener('click', function() {
+            gtag('event', 'view_stat', {
+              'stat_value': this.querySelector('.stat-number').textContent,
+              'stat_label': this.querySelector('div:last-child').textContent
+            });
+          });
+        });
+      });
     </script>
   </body>
 </html>

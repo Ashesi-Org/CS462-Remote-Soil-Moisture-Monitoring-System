@@ -186,8 +186,48 @@
                     <div class="col-lg-4 mb-4">
                         <div class="dashboard-card">
                             <h4>Weather Forecast</h4>
-                            <?php include '../api.php/weatherApi.php';
-                             ?>
+                            <!-- Current Weather -->
+                            <?php include '../api.php/weatherApi.php'; ?>
+                            <!-- <div class="d-flex align-items-center mb-4" id="current-weather">
+                                <i class='bx bx-sun weather-icon'></i>
+                                <div class="ms-3">
+                                    <h2 class="mb-0" id="current-temp">--°C</h2>
+                                    <p class="mb-0" id="weather-description">Loading...</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Hourly Forecast -->
+                            <div class="mb-4">
+                                <h6 class="text-muted mb-3">Today's Forecast</h6>
+                                <div class="hourly-forecast">
+                                    <div class="row g-0" id="hourly-forecast">
+                                        <!-- Hourly forecasts will be inserted here -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Daily Forecast -->
+                            <div class="weather-forecast">
+                                <div class="row g-0">
+                                    <?php
+                                    /*$forecasts = [
+                                        ['day' => 'Mon', 'temp' => '24°', 'icon' => 'bx-sun'],
+                                        ['day' => 'Tue', 'temp' => '23°', 'icon' => 'bx-cloud'],
+                                        ['day' => 'Wed', 'temp' => '25°', 'icon' => 'bx-sun'],
+                                        ['day' => 'Thu', 'temp' => '22°', 'icon' => 'bx-cloud-rain'],
+                                    ];
+
+                                    foreach ($forecasts as $forecast) {
+                                        echo "
+                                        <div class='col-3 text-center'>
+                                            <small class='text-muted'>{$forecast['day']}</small>
+                                            <i class='bx {$forecast['icon']} d-block my-2'></i>
+                                            <small>{$forecast['temp']}</small>
+                                        </div>";
+                                    }*/
+                                    ?>
+                                </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
