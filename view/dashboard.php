@@ -92,22 +92,37 @@
 
                 <!-- Key Metrics Cards -->
                 <div class="row mb-4">
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="dashboard-card">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="text-muted mb-1">Current Soil Moisture</h6>
-                                    <h3 class="mb-0">45%</h3>
-                                    <small class="text-danger">
-                                        <i class='bx bx-down-arrow-alt'></i> Below optimal
-                                    </small>
-                                </div>
-                                <div class="fs-1 text-success">
-                                    <i class='bx bx-droplet'></i>
+                    <div class="row mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="dashboard-card">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="text-muted mb-1">Soil Moisture</h6>
+                                        <?php include '../api.php/soilMoistureApi.php';
+                                        if (isset($soilMoisture) && $soilMoisture !== null): ?>
+                                        <h3 class="mb-0"><?php echo round($soilMoisture * 100, 1); ?>%</h3>
+                                        <?php if ($soilMoisture < 0.3): ?>
+                                        <small class="text-danger">
+                                            <i class='bx bx-down-arrow-alt'></i> Below optimal
+                                        </small>
+                                        <?php else: ?>
+                                        <small class="text-success">
+                                            <i class='bx bx-up-arrow-alt'></i> Optimal
+                                        </small>
+                                        <?php endif; ?>
+                                        <?php else: ?>
+                                        <h3 class="mb-0">N/A</h3>
+                                        <small class="text-muted">Data unavailable</small>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="fs-1 text-success">
+                                        <i class='bx bx-droplet'></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="dashboard-card">
@@ -171,17 +186,31 @@
                     <div class="col-lg-4 mb-4">
                         <div class="dashboard-card">
                             <h4>Weather Forecast</h4>
-                            <div class="d-flex align-items-center mb-4">
+                            <!-- Current Weather -->
+                            <?php include '../api.php/weatherApi.php'; ?>
+                            <!-- <div class="d-flex align-items-center mb-4" id="current-weather">
                                 <i class='bx bx-sun weather-icon'></i>
                                 <div class="ms-3">
-                                    <h2 class="mb-0">28°C</h2>
-                                    <p class="mb-0">Sunny</p>
+                                    <h2 class="mb-0" id="current-temp">--°C</h2>
+                                    <p class="mb-0" id="weather-description">Loading...</p>
                                 </div>
                             </div>
+                            
+                            <!-- Hourly Forecast -->
+                            <div class="mb-4">
+                                <h6 class="text-muted mb-3">Today's Forecast</h6>
+                                <div class="hourly-forecast">
+                                    <div class="row g-0" id="hourly-forecast">
+                                        <!-- Hourly forecasts will be inserted here -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Daily Forecast -->
                             <div class="weather-forecast">
                                 <div class="row g-0">
                                     <?php
-                                    $forecasts = [
+                                    /*$forecasts = [
                                         ['day' => 'Mon', 'temp' => '24°', 'icon' => 'bx-sun'],
                                         ['day' => 'Tue', 'temp' => '23°', 'icon' => 'bx-cloud'],
                                         ['day' => 'Wed', 'temp' => '25°', 'icon' => 'bx-sun'],
@@ -195,10 +224,10 @@
                                             <i class='bx {$forecast['icon']} d-block my-2'></i>
                                             <small>{$forecast['temp']}</small>
                                         </div>";
-                                    }
+                                    }*/
                                     ?>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -363,32 +392,9 @@
             categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
         }
     });
-    irrigationChart.render();
-
-    // Historical Trends Chart
-    const trendsChart = new ApexCharts(document.querySelector("#trendsChart"), {
-        series: [{
-            name: 'Actual',
-            data: [31, 40, 28, 51, 42, 109, 100]
-        }, {
-            name: 'Predicted',
-            data: [11, 32, 45, 32, 34, 52, 41]
-        }],
-        chart: {
-            height: 250,
-            type: 'line',
-            toolbar: {
-                show: false
-            }
-        },
-        colors: ['#198754', '#ffc107'],
-        xaxis: {
-            categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        }
-    });
     trendsChart.render();
     </script>
     <script src="../assets/js/dashboard.js"></script>
-</body>
+    <script src="../assets/js/weatherApi.js"></script>
 
 </html>
