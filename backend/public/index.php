@@ -34,6 +34,12 @@ if (strpos($request_uri, 'getUserInfo.php') !== false) {
     exit;
 }
 
+// New route for irrigation recommendations
+if (strpos($request_uri, 'recommendation.php') !== false) {
+    require __DIR__ . '/api/recommendation.php';
+    exit;
+}
+
 // Health check endpoint
 if ($_SERVER['REQUEST_URI'] === '/api/health') {
     header('Content-Type: application/json');
