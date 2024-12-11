@@ -3,6 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Access-Control-Allow-Credentials: true");
 
 // Corrected require_once paths
 require_once __DIR__ . '/../config/Database.php';
@@ -25,6 +26,11 @@ if (strpos($request_uri, 'auth/register.php') !== false) {
 
 if (strpos($request_uri, 'auth/login.php') !== false) {
     require __DIR__ . '/api/auth/login.php';
+    exit;
+}
+
+if (strpos($request_uri, 'getUserInfo.php') !== false) {
+    require __DIR__ . '/api/getUserInfo.php';
     exit;
 }
 
