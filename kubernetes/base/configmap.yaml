@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: app-config
 data:
-  DB_HOST: "postgres-service.default.svc.cluster.local"
+  DB_HOST: "postgres-service"
   DB_NAME: "ecogo"
   API_URL: "http://backend" 

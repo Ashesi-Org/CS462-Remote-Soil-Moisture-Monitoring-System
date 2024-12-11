@@ -101,7 +101,7 @@
                 <!-- Key Metrics Cards -->
                 <div class="row">
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="dashboard-card">
+                        <div class="dashboard-card h-100">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <h6 class="text-muted mb-1">Current Soil Moisture</h6>
@@ -120,7 +120,7 @@
                     </div>
 
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="dashboard-card">
+                        <div class="dashboard-card h-100">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <h6 class="text-muted mb-1">Next Irrigation</h6>
@@ -139,17 +139,17 @@
                 <div class="row mb-4">
                     <!-- Soil Moisture Trend -->
                     <div class="col-lg-8 mb-4">
-                        <div class="dashboard-card">
+                        <div class="dashboard-card h-100">
                             <h4>Today's Soil Moisture Trend</h4>
-                            <div id="moistureChart"></div>
+                            <div id="moistureChart" style="flex-grow: 1;"></div>
                         </div>
                     </div>
 
                     <!-- Weather Summary -->
                     <div class="col-lg-4 mb-4">
-                        <div class="dashboard-card">
+                        <div class="dashboard-card h-100 d-flex flex-column">
                             <h4>Weather Forecast</h4>
-                            <div id="current-weather">
+                            <div id="current-weather" class="flex-grow-1">
                                 <h2>Current Weather</h2>
                                 <div class="weather-icon">
                                     <img src="" alt="weather icon" id="weather-icon-img">
@@ -161,7 +161,7 @@
                                     <p><strong>Wind Speed:</strong> <span id="wind-speed">-- m/s</span></p>
                                 </div>
                             </div>
-                            <button onclick="WeatherService.fetchWeather()" class="btn btn-sm btn-outline-primary">
+                            <button onclick="WeatherService.fetchWeather()" class="btn btn-sm btn-outline-primary mt-auto">
                                 <i class='bx bx-refresh'></i> Update Location
                             </button>
                         </div>
