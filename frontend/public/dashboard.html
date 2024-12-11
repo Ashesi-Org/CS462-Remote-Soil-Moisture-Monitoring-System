@@ -44,18 +44,18 @@
                     </a>
                 </li>
                 <li>
-                    <a href="irrigation-schedule.html">
+                    <a href="schedule.html">
                         <i class='bx bx-calendar'></i>
                         <span class="link-name">Irrigation Schedule</span>
                     </a>
                 </li>
+                <!-- ... other sidebar links ... -->
                 <li>
-                    <a href="data_visualization.html">
-                        <i class='bx bx-bar-chart-alt-2'></i>
-                        <span class="link-name">Data Visualization</span>
+                    <a href="irrigation-schedule.html">
+                        <i class='bx bx-bulb'></i>
+                        <span class="link-name">Recommendations</span>
                     </a>
                 </li>
-                <!-- ... other sidebar links ... -->
             </ul>
         </nav>
 
@@ -79,7 +79,7 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="profile.html">Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="logout.html">Logout</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="LogoutManager.logout(); return false;">Log Out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -174,33 +174,7 @@
                         <div class="dashboard-card">
                             <h4>Recent Activity</h4>
                             <div class="activity-list">
-                                <div class="activity-item d-flex align-items-center py-2">
-                                    <div class="activity-icon bg-success-subtle rounded-circle p-2 me-3">
-                                        <i class='bx bx-water text-success'></i>
-                                    </div>
-                                    <div>
-                                        <p class="mb-0">Irrigation completed in Zone A</p>
-                                        <small class="text-muted">2 hours ago</small>
-                                    </div>
-                                </div>
-                                <div class="activity-item d-flex align-items-center py-2">
-                                    <div class="activity-icon bg-warning-subtle rounded-circle p-2 me-3">
-                                        <i class='bx bx-bell text-warning'></i>
-                                    </div>
-                                    <div>
-                                        <p class="mb-0">Low moisture alert in Zone B</p>
-                                        <small class="text-muted">3 hours ago</small>
-                                    </div>
-                                </div>
-                                <div class="activity-item d-flex align-items-center py-2">
-                                    <div class="activity-icon bg-info-subtle rounded-circle p-2 me-3">
-                                        <i class='bx bx-refresh text-info'></i>
-                                    </div>
-                                    <div>
-                                        <p class="mb-0">System maintenance completed</p>
-                                        <small class="text-muted">5 hours ago</small>
-                                    </div>
-                                </div>
+                                <!-- Recent activities will be dynamically loaded here -->
                             </div>
                         </div>
                     </div>
@@ -209,26 +183,7 @@
                         <div class="dashboard-card">
                             <h4>Upcoming Tasks</h4>
                             <div class="task-list">
-                                <div class="task-item d-flex align-items-center justify-content-between py-2">
-                                    <div class="d-flex align-items-center">
-                                        <i class='bx bx-water me-3 text-success'></i>
-                                        <div>
-                                            <p class="mb-0">Schedule irrigation for Zone C</p>
-                                            <small class="text-muted">Today, 2:00 PM</small>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-sm btn-outline-success">Schedule</button>
-                                </div>
-                                <div class="task-item d-flex align-items-center justify-content-between py-2">
-                                    <div class="d-flex align-items-center">
-                                        <i class='bx bx-check-circle me-3 text-warning'></i>
-                                        <div>
-                                            <p class="mb-0">System maintenance check</p>
-                                            <small class="text-muted">Tomorrow, 9:00 AM</small>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-sm btn-outline-warning">Review</button>
-                                </div>
+                                <!-- Upcoming tasks will be dynamically loaded here -->
                             </div>
                         </div>
                     </div>
@@ -286,6 +241,7 @@
     <script src="js/locationService.js"></script>
     <script src="js/soilMoistureChart.js"></script>
     <script src="js/userSession.js"></script>
+    <script src="js/logout.js"></script>
     <script>
 
     // Irrigation Schedule Chart

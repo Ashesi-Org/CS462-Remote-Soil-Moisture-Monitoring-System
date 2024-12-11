@@ -29,8 +29,24 @@ if (strpos($request_uri, 'auth/login.php') !== false) {
     exit;
 }
 
+if (strpos($request_uri, 'auth/logout.php') !== false) {
+    require __DIR__ . '/api/auth/logout.php';
+    exit;
+}
+
 if (strpos($request_uri, 'getUserInfo.php') !== false) {
     require __DIR__ . '/api/getUserInfo.php';
+    exit;
+}
+
+if (strpos($request_uri, 'schedule.php') !== false) {
+    require __DIR__ . '/api/schedule.php';
+    exit;
+}
+
+// Add dashboard endpoint
+if (strpos($request_uri, 'dashboard.php') !== false) {
+    require __DIR__ . '/api/dashboard.php';
     exit;
 }
 
