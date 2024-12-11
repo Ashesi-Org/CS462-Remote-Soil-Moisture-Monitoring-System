@@ -12,12 +12,75 @@ class ScheduleManager {
     this.init();
   }
 
-  init() {
-    this.loadCurrentSchedule();
-    this.setupProgressModal();
-    this.setupEventListeners();
+  async init() {
+    // Initialize Bootstrap modals
+    this.progressModal = new bootstrap.Modal(document.getElementById('progressModal'));
+    this.generateModal = new bootstrap.Modal(document.getElementById('generateScheduleModal'));
+    
+    // Setup event listeners
     this.setupGenerateScheduleForm();
-    this.setupLocationService();
+    this.setupLocationButton();
+    
+    // Load initial data
+    await this.loadCurrentSchedule();
+  }
+
+  setupLocationButton() {
+    const locationBtn = document.getElementById('getLocationBtn');
+    if (!locationBtn) return;
+
+    locationBtn.addEventListener('click', async () => {
+      locationBtn.disabled = true;
+      locationBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i>';
+
+      try {
+        // Check if we're on HTTPS
+        if (location.protocol !== 'https:') {
+          throw new Error('Geolocation requires a secure connection (HTTPS)');
+        }
+
+        // Check if geolocation is supported
+        if (!navigator.geolocation) {
+          throw new Error('Geolocation is not supported by your browser');
+        }
+
+        const position = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+          });
+        });
+
+        document.getElementById('latitude').value = position.coords.latitude.toFixed(6);
+        document.getElementById('longitude').value = position.coords.longitude.toFixed(6);
+
+      } catch (error) {
+        let errorMessage = 'Failed to get location';
+        
+        switch(error.code) {
+          case 1:
+            errorMessage = 'Location access was denied. Please enter coordinates manually or enable location access.';
+            break;
+          case 2:
+            errorMessage = 'Location unavailable. Please try again or enter coordinates manually.';
+            break;
+          case 3:
+            errorMessage = 'Location request timed out. Please try again or enter coordinates manually.';
+            break;
+          default:
+            if (error.message) {
+              errorMessage = error.message;
+            }
+        }
+
+        console.warn('Geolocation error:', errorMessage);
+        alert(errorMessage);
+      } finally {
+        locationBtn.disabled = false;
+        locationBtn.innerHTML = '<i class="bx bx-current-location"></i>';
+      }
+    });
   }
 
   setupProgressModal() {
@@ -95,7 +158,6 @@ class ScheduleManager {
                 <small class="text-muted">
                     ${item.water_applied.toLocaleString()} / ${item.water_amount.toLocaleString()} L
                 </small>
-                ${item.notes ? `<div class="mt-2 text-muted"><small><i class="bx bx-note"></i> ${item.notes}</small></div>` : ''}
             </td>
             <td>
                 <span class="schedule-status status-${item.status.toLowerCase()}">
@@ -105,7 +167,7 @@ class ScheduleManager {
             <td>
                 ${item.status === "pending" ? `
                     <button class="btn btn-sm btn-outline-success" 
-                            onclick="scheduleManager.openProgressModal('${item.id}', ${item.water_amount}, ${item.water_applied}, '${item.notes || ''}')">
+                            onclick="scheduleManager.openProgressModal('${item.id}', ${item.water_amount}, ${item.water_applied})">
                         Update Progress
                     </button>
                 ` : ''}
@@ -114,17 +176,15 @@ class ScheduleManager {
     `).join('');
   }
 
-  openProgressModal(scheduleId, targetAmount, currentAmount = 0, notes = '') {
+  openProgressModal(scheduleId, targetAmount, currentAmount = 0) {
     const waterInput = document.getElementById("waterApplied");
     const targetWater = document.getElementById("targetWater");
     const progressBar = document.getElementById("progressBar");
-    const notesInput = document.getElementById("progressNotes");
 
     waterInput.value = currentAmount;
     waterInput.max = targetAmount;
     targetWater.textContent = targetAmount.toLocaleString();
     targetWater.dataset.target = targetAmount;
-    notesInput.value = notes;
 
     const percentage = Math.min((currentAmount / targetAmount) * 100, 100);
     progressBar.style.width = `${percentage}%`;
@@ -253,30 +313,6 @@ class ScheduleManager {
       data.location.lon >= -180 &&
       data.location.lon <= 180
     );
-  }
-
-  setupLocationService() {
-    const locationBtn = document.getElementById("getLocationBtn");
-    if (!locationBtn) return;
-
-    locationBtn.addEventListener("click", () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            document.getElementById("latitude").value =
-              position.coords.latitude.toFixed(6);
-            document.getElementById("longitude").value =
-              position.coords.longitude.toFixed(6);
-          },
-          (error) => {
-            console.error("Error getting location:", error);
-            alert("Failed to get location. Please enter coordinates manually.");
-          }
-        );
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
-    });
   }
 }
 
