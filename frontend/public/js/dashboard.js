@@ -55,8 +55,9 @@ class DashboardManager {
         try {
             const response = await fetch('/api/dashboard.php');
             if (!response.ok) throw new Error('Failed to fetch dashboard data');
-
+            
             const data = await response.json();
+            this.updateNextIrrigation(data);
             this.displayRecentActivities(data.recent_activities);
             this.displayUpcomingTasks(data.upcoming_tasks);
         } catch (error) {
@@ -146,5 +147,39 @@ class DashboardManager {
             return `Irrigation cancelled for ${activity.plant_type}`;
         }
         return `Schedule updated for ${activity.plant_type}`;
+    }
+
+    formatNextIrrigation(hours) {
+        if (!hours) return 'No scheduled irrigation';
+        
+        if (hours < 1) {
+            const minutes = Math.round(hours * 60);
+            return `${minutes}m`;
+        }
+        
+        return `${Math.round(hours)}h`;
+    }
+
+    formatScheduleTime(datetime) {
+        return new Date(datetime).toLocaleTimeString([], { 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+    }
+
+    updateNextIrrigation(data) {
+        const nextIrrigation = data.next_irrigation;
+        const timeDisplay = document.querySelector('#next-irrigation-time');
+        const scheduleDisplay = document.querySelector('#next-irrigation-schedule');
+        
+        if (!nextIrrigation) {
+            timeDisplay.textContent = '---';
+            scheduleDisplay.textContent = 'No upcoming irrigation';
+            return;
+        }
+
+        timeDisplay.textContent = this.formatNextIrrigation(nextIrrigation.hours_until);
+        scheduleDisplay.textContent = `Scheduled for ${this.formatScheduleTime(nextIrrigation.datetime)}`;
+        scheduleDisplay.className = 'text-success';
     }
 }

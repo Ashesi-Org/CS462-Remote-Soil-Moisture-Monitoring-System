@@ -50,10 +50,27 @@ class DashboardController {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
+    public function getNextIrrigation() {
+        $query = "SELECT 
+                    datetime,
+                    plant_type,
+                    EXTRACT(EPOCH FROM (datetime - NOW()))/3600 as hours_until
+                 FROM irrigation_schedules 
+                 WHERE status = 'pending' 
+                 AND datetime > NOW()
+                 ORDER BY datetime ASC
+                 LIMIT 1";
+                 
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
     public function getDashboardData() {
         return [
             'recent_activities' => $this->getRecentActivities(),
-            'upcoming_tasks' => $this->getUpcomingTasks()
+            'upcoming_tasks' => $this->getUpcomingTasks(),
+            'next_irrigation' => $this->getNextIrrigation()
         ];
     }
 }
