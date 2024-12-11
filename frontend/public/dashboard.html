@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <!-- Google tag (gtag.js) -->
     <script
       async
@@ -67,24 +67,20 @@
                     <button class="navbar-toggler d-lg-none" type="button" id="sidebarCollapse">
                         <i class='bx bx-menu'></i>
                     </button>
+                    
                     <span class="navbar-brand ms-2">Dashboard</span>
 
                     <!-- User Dropdown -->
-                    <div class="ms-auto">
-                        <div class="dropdown">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="userDropdown"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class='bx bx-user-circle fs-5'></i>
-                                <span class="ms-1">John Doe</span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-                            </ul>
-                        </div>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class='bx bx-user-circle fs-5 me-2'></i>
+                            <span id="user-name">Loading...</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="logout.html">Logout</a></li>
+                        </ul>
                     </div>
                 </div>
             </nav>
@@ -94,42 +90,30 @@
                 <!-- Alert Section -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <i class='bx bx-info-circle me-2'></i>
                             <strong>Alert:</strong> Soil moisture critically low in Zone B
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
                 <!-- Key Metrics Cards -->
-                <div class="row mb-4">
-                    <div class="row mb-4">
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="dashboard-card">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h6 class="text-muted mb-1">Soil Moisture</h6>
-                                        <?php include '../backend/public/api/soilMoistureApi.php';
-                                        if (isset($soilMoisture) && $soilMoisture !== null): ?>
-                                        <h3 class="mb-0"><?php echo round($soilMoisture * 100, 1); ?>%</h3>
-                                        <?php if ($soilMoisture < 0.3): ?>
-                                        <small class="text-danger">
-                                            <i class='bx bx-down-arrow-alt'></i> Below optimal
+                <div class="row">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="dashboard-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted mb-1">Current Soil Moisture</h6>
+                                    <div id="soil-moisture-data">
+                                        <h3 class="mb-0" id="moisture-value">---%</h3>
+                                        <small id="moisture-status" class="text-muted">
+                                            <i class='bx bx-loader-alt'></i> Loading...
                                         </small>
-                                        <?php else: ?>
-                                        <small class="text-success">
-                                            <i class='bx bx-up-arrow-alt'></i> Optimal
-                                        </small>
-                                        <?php endif; ?>
-                                        <?php else: ?>
-                                        <h3 class="mb-0">N/A</h3>
-                                        <small class="text-muted">Data unavailable</small>
-                                        <?php endif; ?>
                                     </div>
-                                    <div class="fs-1 text-success">
-                                        <i class='bx bx-droplet'></i>
-                                    </div>
+                                </div>
+                                <div class="fs-1 text-success">
+                                    <i class='bx bx-droplet'></i>
                                 </div>
                             </div>
                         </div>
@@ -150,38 +134,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="dashboard-card">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="text-muted mb-1">Today's Water Usage</h6>
-                                    <h3 class="mb-0">250L</h3>
-                                    <small class="text-success">
-                                        <i class='bx bx-up-arrow-alt'></i> 15% less than avg
-                                    </small>
-                                </div>
-                                <div class="fs-1 text-success">
-                                    <i class='bx bx-water'></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="dashboard-card">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="text-muted mb-1">System Status</h6>
-                                    <h3 class="mb-0">Active</h3>
-                                    <small class="text-success">All systems operational</small>
-                                </div>
-                                <div class="fs-1 text-success">
-                                    <i class='bx bx-check-circle'></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Charts Row -->
@@ -198,8 +150,21 @@
                     <div class="col-lg-4 mb-4">
                         <div class="dashboard-card">
                             <h4>Weather Forecast</h4>
-                            <?php include '../backend/public/api/weatherApi.php';
-                             ?>
+                            <div id="current-weather">
+                                <h2>Current Weather</h2>
+                                <div class="weather-icon">
+                                    <img src="" alt="weather icon" id="weather-icon-img">
+                                </div>
+                                <p class="temperature" id="temperature">--°C</p>
+                                <p class="description" id="weather-desc">Loading...</p>
+                                <div class="additional-info">
+                                    <p><strong>Humidity:</strong> <span id="humidity">--%</span></p>
+                                    <p><strong>Wind Speed:</strong> <span id="wind-speed">-- m/s</span></p>
+                                </div>
+                            </div>
+                            <button onclick="WeatherService.fetchWeather()" class="btn btn-sm btn-outline-primary">
+                                <i class='bx bx-refresh'></i> Update Location
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -316,35 +281,13 @@
     <!-- JavaScript Dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="js/weather.js"></script>
+    <script src="js/soilMoisture.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/locationService.js"></script>
+    <script src="js/soilMoistureChart.js"></script>
+    <script src="js/userSession.js"></script>
     <script>
-    // Soil Moisture Chart
-    const moistureChart = new ApexCharts(document.querySelector("#moistureChart"), {
-        series: [{
-            name: 'Moisture Level',
-            data: [0.30, 0.32, 0.35, 0.31, 0.29, 0.21, 0.20, 0.15, 0.12, 0.14, 0.1, 0.097]
-        }],
-        chart: {
-            height: 350,
-            type: 'area',
-            toolbar: {
-                show: false
-            }
-        },
-        colors: ['#198754'],
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shadeIntensity: 1,
-                opacityFrom: 0.7,
-                opacityTo: 0.9,
-                stops: [0, 90, 100]
-            }
-        },
-        xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        }
-    });
-    moistureChart.render();
 
     // Irrigation Schedule Chart
     const irrigationChart = new ApexCharts(document.querySelector("#irrigationScheduleChart"), {
@@ -366,29 +309,7 @@
     });
     trendsChart.render();
     </script>
-    <script src="../assets/js/dashboard.js"></script>
-    <script>
-    // Track chart interactions
-    document.querySelector("#moistureChart").addEventListener('click', function() {
-        gtag('event', 'chart_interaction', {
-            'chart_type': 'moisture'
-        });
-    });
-
-    // Track activity views
-    document.querySelector(".activity-list").addEventListener('click', function() {
-        gtag('event', 'view_activity', {
-            'type': 'recent_activity'
-        });
-    });
-
-    // Track system status checks
-    document.querySelector(".dashboard-card").addEventListener('click', function() {
-        gtag('event', 'check_status', {
-            'status': 'system_health'
-        });
-    });
-    </script>
+    
 </body>
 
 </html>

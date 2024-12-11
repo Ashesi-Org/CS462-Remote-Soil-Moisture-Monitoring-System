@@ -28,6 +28,11 @@ if (strpos($request_uri, 'auth/login.php') !== false) {
     exit;
 }
 
+if (strpos($request_uri, 'getUserInfo.php') !== false) {
+    require __DIR__ . '/api/getUserInfo.php';
+    exit;
+}
+
 // Health check endpoint
 if ($_SERVER['REQUEST_URI'] === '/api/health') {
     header('Content-Type: application/json');

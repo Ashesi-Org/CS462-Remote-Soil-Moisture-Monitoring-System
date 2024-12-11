@@ -5,4 +5,4 @@ metadata:
 data:
   DB_HOST: "postgres-service.default.svc.cluster.local"
   DB_NAME: "ecogo"
-  API_URL: "http://backend-service" 
+  API_URL: "http://backend" 

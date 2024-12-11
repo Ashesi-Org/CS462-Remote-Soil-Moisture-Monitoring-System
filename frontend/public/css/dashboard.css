@@ -62,13 +62,13 @@ body {
 }
 
 /* Enhanced Weather Card */
-.weather-icon {
+/* .weather-icon {
     font-size: 3rem;
     color: var(--primary-color);
     background: rgba(25, 135, 84, 0.1);
     padding: 15px;
     border-radius: 50%;
-}
+} */
 
 /* Enhanced Moisture Indicators */
 .moisture-indicator {
@@ -365,5 +365,57 @@ body {
     pointer-events: none;
 }
 
+#current-weather {
+    padding: 20px;
+    text-align: center;
+}
+
+#current-weather h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.weather-icon {
+    margin-bottom: 15px;
+}
+
+.weather-icon img {
+    width: 80px;
+    height: 80px;
+}
+
+#current-weather .temperature {
+    font-size: 40px;
+    font-weight: bold;
+    color: #1e90ff;
+    margin: 8px 0;
+}
+
+#current-weather .description {
+    font-size: 22px;
+    color: #4b4b4b;
+    margin: 8px 0;
+}
+
+#current-weather .additional-info p {
+    font-size: 16px;
+    color: #777;
+    margin: 8px 0;
+}
+
+@media (max-width: 600px) {
+    #current-weather {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    #current-weather h2 {
+        font-size: 20px;
+    }
+
+    #current-weather .temperature {
+        font-size: 36px;
+    }
 
 
