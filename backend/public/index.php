@@ -34,6 +34,11 @@ if (strpos($request_uri, 'getUserInfo.php') !== false) {
     exit;
 }
 
+// Add this new route
+if (strpos($request_uri, 'user/update-profile.php') !== false) {
+    require __DIR__ . '/api/update-profile.php';
+    exit;
+}
 
 // New route for irrigation recommendations
 if (strpos($request_uri, 'recommendation.php') !== false) {
