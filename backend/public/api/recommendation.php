@@ -107,8 +107,8 @@ function calculateIrrigationSchedule($plant, $soilType, $hectares, $weatherData,
 
 
 // Fetch input data
-$lat = isset($_GET['lat']) ? $_GET['lat'] : 5.76;
-$lon = isset($_GET['lon']) ? $_GET['lon'] : -0.23;
+$lat = isset($_GET['lat']) ? $_GET['lat'] : 5.759391;
+$lon = isset($_GET['lon']) ? $_GET['lon'] : -0.220172;
 $soilType = isset($_GET['soil_type']) ? ucfirst(strtolower($_GET['soil_type'])) : 'Loamy';
 $plant = isset($_GET['plant']) ? ucfirst(strtolower($_GET['plant'])) : 'Maize';
 $hectares = isset($_GET['hectares']) ? floatval($_GET['hectares']) : 1.0;

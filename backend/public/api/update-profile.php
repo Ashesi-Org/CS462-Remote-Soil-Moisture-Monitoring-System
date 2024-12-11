@@ -8,8 +8,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('error_log', __DIR__ . '/../../../../logs/error.log');
 
-require_once __DIR__ . '/../../../config/Database.php';
-require_once __DIR__ . '/../../../models/User.php';
+require_once __DIR__ . '/../../config/Database.php';
+require_once __DIR__ . '/../../models/User.php';
 
 session_start();
 

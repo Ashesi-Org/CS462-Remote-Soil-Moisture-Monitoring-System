@@ -57,6 +57,12 @@ if (strpos($request_uri, 'dashboard.php') !== false) {
     exit;
 }
 
+// Add this new route
+if (strpos($request_uri, 'update-profile.php') !== false) {
+    require __DIR__ . '/api/update-profile.php';
+    exit;
+}
+
 // Health check endpoint
 if ($_SERVER['REQUEST_URI'] === '/api/health') {
     header('Content-Type: application/json');

@@ -105,3 +105,22 @@ header h1 {
     border: 1px solid #f5c6cb;
     color: #721c24;
 }
+
+.input-group .btn-outline-secondary {
+    border-color: #ced4da;
+    color: #6c757d;
+}
+
+.input-group .btn-outline-secondary:hover {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+.input-group .btn-outline-secondary:focus {
+    box-shadow: none;
+}
+
+.input-group .bx {
+    font-size: 1.2rem;
+    line-height: 1;
+}

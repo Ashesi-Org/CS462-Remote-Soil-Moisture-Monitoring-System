@@ -34,9 +34,12 @@ class ScheduleManager {
       locationBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i>';
 
       try {
-        // Check if we're on HTTPS
-        if (location.protocol !== 'https:') {
-          throw new Error('Geolocation requires a secure connection (HTTPS)');
+        // Check if we're on HTTPS or localhost
+        const isLocalhost = window.location.hostname === 'localhost' || 
+                          window.location.hostname === '127.0.0.1';
+        
+        if (!isLocalhost && location.protocol !== 'https:') {
+          throw new Error('Geolocation requires a secure connection (HTTPS) when not on localhost');
         }
 
         // Check if geolocation is supported
@@ -74,7 +77,7 @@ class ScheduleManager {
             }
         }
 
-        console.warn('Geolocation error:', errorMessage);
+        console.warn('Geolocation error:', error);
         alert(errorMessage);
       } finally {
         locationBtn.disabled = false;
@@ -313,6 +316,30 @@ class ScheduleManager {
       data.location.lon >= -180 &&
       data.location.lon <= 180
     );
+  }
+
+  setupLocationService() {
+    const locationBtn = document.getElementById("getLocationBtn");
+    if (!locationBtn) return;
+
+    locationBtn.addEventListener("click", () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            document.getElementById("latitude").value =
+              position.coords.latitude.toFixed(6);
+            document.getElementById("longitude").value =
+              position.coords.longitude.toFixed(6);
+          },
+          (error) => {
+            console.error("Error getting location:", error);
+            alert("Failed to get location. Please enter coordinates manually.");
+          }
+        );
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    });
   }
 }
 

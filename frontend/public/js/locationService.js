@@ -1,6 +1,6 @@
 class LocationService {
-    static defaultLat = 5.76;
-    static defaultLon = -0.23;
+    static defaultLat = 5.759391;
+    static defaultLon = -0.220172;
 
     static async getCurrentLocation() {
         return new Promise((resolve, reject) => {

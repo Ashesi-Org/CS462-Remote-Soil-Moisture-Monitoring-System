@@ -76,7 +76,7 @@ class ProfileController {
         }
 
         try {
-            const response = await fetch('/api/user/update-profile.php', {
+            const response = await fetch('/api/update-profile.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

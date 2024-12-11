@@ -17,9 +17,6 @@ class AuthController {
         if (this.togglePasswordBtn) {
             this.togglePasswordBtn.addEventListener('click', this.togglePasswordVisibility.bind(this));
         }
-
-        // Check for remembered credentials
-        this.checkRememberedCredentials();
     }
 
     validateEmail(email) {
@@ -39,72 +36,71 @@ class AuthController {
     }
 
     togglePasswordVisibility() {
-        const type = this.passwordInput.type === 'password' ? 'text' : 'password';
-        this.passwordInput.type = type;
-        this.togglePasswordBtn.querySelector('i').classList.toggle('bx-hide');
-        this.togglePasswordBtn.querySelector('i').classList.toggle('bx-show');
-    }
+        const type = this.passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        this.passwordInput.setAttribute('type', type);
+        
+        // Track password visibility toggle
+        trackEvent('password_visibility_toggle', {
+            'state': type === 'text' ? 'shown' : 'hidden'
+        });
 
-    saveCredentials(email) {
-        if (this.rememberMeCheckbox.checked) {
-            localStorage.setItem('rememberedEmail', email);
-        } else {
-            localStorage.removeItem('rememberedEmail');
-        }
-    }
-
-    checkRememberedCredentials() {
-        const rememberedEmail = localStorage.getItem('rememberedEmail');
-        if (rememberedEmail) {
-            document.getElementById('email').value = rememberedEmail;
-            this.rememberMeCheckbox.checked = true;
-        }
+        const icon = this.togglePasswordBtn.querySelector('i');
+        icon.classList.toggle('bx-hide');
+        icon.classList.toggle('bx-show');
     }
 
     async handleLogin(event) {
         event.preventDefault();
-        this.hideError();
-
-        // Get form data
-        const formData = {
-            email: document.getElementById('email').value,
-            password: this.passwordInput.value
-        };
-
-        // Validate email
-        const emailValidation = this.validateEmail(formData.email);
-        if (!emailValidation.isValid) {
-            this.showError(emailValidation.message);
-            return;
-        }
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const rememberMe = document.getElementById('rememberMe')?.checked;
 
         try {
+            // Track login attempt
+            trackEvent('login_attempt', {
+                'method': 'email'
+            });
+
             const response = await fetch('/api/auth/login.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({ email, password }),
             });
 
             const data = await response.json();
 
             if (data.success) {
-                // Save credentials if remember me is checked
-                this.saveCredentials(formData.email);
-                
-                // Store user data in localStorage
-                localStorage.setItem('user', JSON.stringify(data.user));
-                
-                // Redirect to dashboard
+                // Track successful login
+                trackEvent('login_success', {
+                    'method': 'email'
+                });
+
+                if (rememberMe) {
+                    localStorage.setItem('rememberedEmail', email);
+                } else {
+                    localStorage.removeItem('rememberedEmail');
+                }
+
                 window.location.href = '/dashboard.html';
             } else {
-                this.showError(data.message || 'Invalid email or password');
+                // Track failed login
+                trackEvent('login_failed', {
+                    'error_type': data.message
+                });
+
+                this.showError(data.message);
             }
         } catch (error) {
+            // Track error
+            trackEvent('login_error', {
+                'error_type': 'network_error'
+            });
+
             console.error('Login error:', error);
-            this.showError('An error occurred during login. Please try again.');
+            this.showError('An error occurred. Please try again.');
         }
     }
 }
