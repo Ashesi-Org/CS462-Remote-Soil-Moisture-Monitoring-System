@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/apexcharts/dist/apexcharts.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../frontend/public/css/dashboard.css">
 
 
 </head>
@@ -349,7 +349,7 @@
     const moistureChart = new ApexCharts(document.querySelector("#moistureChart"), {
         series: [{
             name: 'Moisture Level',
-            data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+            data: [0.30, 0.32, 0.35, 0.31, 0.29, 0.21, 0.20, 0.15, 0.12, 0.14, 0.1, 0.097]
         }],
         chart: {
             height: 350,
@@ -369,7 +369,7 @@
             }
         },
         xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         }
     });
     moistureChart.render();

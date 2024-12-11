@@ -71,4 +71,58 @@ class User {
             throw $e;
         }
     }
+
+    public function updateProfile($data) {
+        error_log("Starting updateProfile method with data: " . print_r($data, true));
+
+        try {
+            // Validate input data
+            if (empty($data['id'])) {
+                error_log("Error: Missing user ID");
+                return false;
+            }
+
+            // Start building the query
+            $query = "UPDATE " . $this->table . " 
+                     SET full_name = :full_name, 
+                         email = :email";
+            
+            $params = [
+                ":id" => $data['id'],
+                ":full_name" => htmlspecialchars(strip_tags($data['fullName'])),
+                ":email" => htmlspecialchars(strip_tags($data['email']))
+            ];
+
+            // Add password update if provided
+            if (!empty($data['password'])) {
+                $query .= ", password_hash = :password_hash";
+                $params[":password_hash"] = password_hash($data['password'], PASSWORD_DEFAULT);
+            }
+
+            $query .= " WHERE id = :id";
+
+            error_log("Executing query: " . $query);
+            error_log("With parameters: " . print_r($params, true));
+
+            $stmt = $this->conn->prepare($query);
+            
+            if (!$stmt) {
+                error_log("Failed to prepare statement");
+                return false;
+            }
+
+            $result = $stmt->execute($params);
+            
+            if (!$result) {
+                error_log("Query execution failed: " . print_r($stmt->errorInfo(), true));
+                return false;
+            }
+
+            return true;
+        } catch(PDOException $e) {
+            error_log("PDO Exception in updateProfile: " . $e->getMessage());
+            error_log("Stack trace: " . $e->getTraceAsString());
+            return false;
+        }
+    }
 } 

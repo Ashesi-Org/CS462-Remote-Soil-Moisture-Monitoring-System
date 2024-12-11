@@ -1,0 +1,104 @@
+:root {
+    --primary-color: #198754;
+    --secondary-color: #155d40;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --success-color: #28a745;
+    --text-dark: #2c3e50;
+    --text-muted: #6c757d;
+    --border-radius: 12px;
+} 
+
+/* Settings specific styles */
+.notification-settings {
+    padding: 1rem 0;
+}
+
+.form-check-input {
+    width: 3em;
+    height: 1.5em;
+    margin-right: 1rem;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.form-check-label {
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+/* Enhanced form styling */
+.form-control, .form-select {
+    background-color: #f8f9fa;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: #fff;
+}
+
+/* Card enhancements */
+.dashboard-card h4 i {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .col-md-6 {
+        padding: 0 10px;
+    }
+    
+    .dashboard-card {
+        padding: 15px;
+    }
+}
+
+/* Field size input group */
+.input-group {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.input-group .form-control {
+    border-right: none;
+}
+
+.input-group .form-select {
+    border-left: none;
+    background-position: right 0.5rem center;
+}
+
+/* Enhanced select styling */
+.form-select {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.form-select:hover {
+    background-color: #fff;
+}
+
+/* Small labels */
+.small.text-muted {
+    font-size: 0.875rem;
+}
+
+/* Row spacing */
+.row.g-3 {
+    margin-top: 0.25rem;
+}
+
+/* Validation styles */
+.form-control:invalid,
+.form-select:invalid {
+    border-color: var(--danger-color);
+}
+
+.form-control:valid,
+.form-select:valid {
+    border-color: var(--success-color);
+}
