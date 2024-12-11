@@ -401,6 +401,28 @@
     trendsChart.render();
     </script>
     <script src="../assets/js/dashboard.js"></script>
+    <script>
+    // Track chart interactions
+    document.querySelector("#moistureChart").addEventListener('click', function() {
+        gtag('event', 'chart_interaction', {
+            'chart_type': 'moisture'
+        });
+    });
+
+    // Track activity views
+    document.querySelector(".activity-list").addEventListener('click', function() {
+        gtag('event', 'view_activity', {
+            'type': 'recent_activity'
+        });
+    });
+
+    // Track system status checks
+    document.querySelector(".dashboard-card").addEventListener('click', function() {
+        gtag('event', 'check_status', {
+            'status': 'system_health'
+        });
+    });
+    </script>
 </body>
 
 </html>
