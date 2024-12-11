@@ -39,6 +39,13 @@ if (strpos($request_uri, 'getUserInfo.php') !== false) {
     exit;
 }
 
+
+// New route for irrigation recommendations
+if (strpos($request_uri, 'recommendation.php') !== false) {
+    require __DIR__. '/api/recommendation.php';
+    exit;
+}
+
 if (strpos($request_uri, 'schedule.php') !== false) {
     require __DIR__ . '/api/schedule.php';
     exit;
