@@ -13,9 +13,9 @@ The Remote Soil Moisture Monitoring System is a smart solution designed to help 
 - **Frontend:** HTML, CSS, PHP for user interface and dashboard.  
 - **Database:** PostgreSQL for structured data storage and query optimization.  
 - **Backend:** PHP for data processing and integration.  
-- **Monitoring:** Prometheus for real-time metric collection and Grafana for data visualization.  
+- **Monitoring:**  Datadog & Managed Service with Prometheus.  
 - **Containerization & Orchestration:** Kubernetes for scaling, deployment, and high availability.  
-- **Testing:** PHPUnit for PHP scripts and Selenium for browser testing.  
+- **Testing:** PHPUnit for PHP scripts.  
 - **Continuous Integration/Delivery:** GitHub Actions for automated pipelines.  
 
 ## Continuous Integration (CI) Pipeline
