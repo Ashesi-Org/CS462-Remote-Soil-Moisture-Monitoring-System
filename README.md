@@ -49,6 +49,13 @@ Our CI pipeline is configured in `.github/workflows/ci.yml` and includes:
 
 For detailed configuration, see our [CI workflow file](.github/workflows/ci.yml).
 
+
+## Continuous Testing
+
+We used PHPUnit for unit testing. Syntax checking is done by PHP Code Sniffer. 
+![alt text](docs/php_testing.png)
+
+
 ## Continuous Deployment (CD) Pipeline
 
 Our project utilizes a robust deployment architecture combining Google Kubernetes Engine (GKE), Docker, and Kustomize for configuration management.
@@ -173,18 +180,23 @@ In addition to Datadog, we also use Google Cloud's Managed Service for Prometheu
 ### Key Metrics Monitored
 
 - Container resource utilization
+
 ![alt text](docs/image-5.png)
 
 - API endpoint performance
+
 ![alt text](docs/image-6.png)
 
 - Database connection health
+
 ![alt text](docs/image-8.png)
 
 - Error rates and response times
+
 ![alt text](docs/image-7.png)
 
 Alerting is also enabled for critical metrics, ensuring timely notifications for system anomalies.
+
 ![alt text](docs/image-9.png)
 ![alt text](docs/image-10.png)
 
@@ -217,6 +229,7 @@ Our RUM setup tracks:
    - Failed API calls
    - UI rendering issues
    - Network failures
+
 ![alt text](docs/datadog_error.png)
 
 
