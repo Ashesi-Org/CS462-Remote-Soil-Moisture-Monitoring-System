@@ -253,8 +253,22 @@ Our RUM setup tracks:
 
 
 ## Images of Deployed website find attached a link to website: https://34.55.145.169/
+## Dashboard
 ![image](https://github.com/user-attachments/assets/b827fcab-70de-46c3-88b1-47602aeac21f)
-*Dashboard showing realtime weather forecast(temperature, humdity and wind speed) based on your location, there is also a chart to visualize soil trends over a number of days and a card showing soil level every 3 hours *
+*Dashboard showing realtime weather forecast(temperature, humdity and wind speed) based on your location, there is also a chart to visualize soil trends over a number of days and a card showing soil level every 3 hours*
 
+![image](https://github.com/user-attachments/assets/9db88444-6a4b-44de-9daf-21f1f9c5e88a)
+*Recent activity based on irrigation schedule updates and upcoing tasks*
+
+## Irrigation Scheduling Page
+![image](https://github.com/user-attachments/assets/3c04c259-753f-4d9e-b36d-54f644402cd9)
+![image](https://github.com/user-attachments/assets/f9b1187b-7cd6-4e17-8528-287629041c62)
+![image](https://github.com/user-attachments/assets/f18e2a40-0078-42df-aab3-29f11fbd760e)
+
+*Irrigation schedule page where the user can plan how they will shcedule the watering of their farms adn how much water will be used, it also makes use of their location*
+
+
+## Irrigation Recommendation page
+![image](https://github.com/user-attachments/assets/76994c9e-a9f4-400d-a083-b65c7d700193)
 
 
