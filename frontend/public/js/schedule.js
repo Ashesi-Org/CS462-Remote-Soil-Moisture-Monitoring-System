@@ -220,12 +220,6 @@ class ScheduleManager {
     }
 
     try {
-      // Track progress update attempt
-      gtag('event', 'progress_update_attempt', {
-        'schedule_id': scheduleId,
-        'water_amount': waterApplied
-      });
-
       const response = await fetch("/api/schedule.php", {
         method: "PATCH",
         headers: {
@@ -240,20 +234,10 @@ class ScheduleManager {
 
       if (!response.ok) throw new Error("Failed to update progress");
 
-      // Track successful progress update
-      gtag('event', 'progress_update_success', {
-        'schedule_id': scheduleId,
-        'water_amount': waterApplied
-      });
 
       await this.loadCurrentSchedule();
       this.progressModal.hide();
     } catch (error) {
-      // Track progress update error
-      gtag('event', 'progress_update_error', {
-        'error_type': error.message,
-        'schedule_id': scheduleId
-      });
 
       console.error("Error saving progress:", error);
       alert("Failed to save progress. Please try again.");

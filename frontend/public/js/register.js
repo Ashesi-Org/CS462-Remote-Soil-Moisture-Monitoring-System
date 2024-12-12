@@ -79,23 +79,11 @@ class AuthController {
         // Update strength meter
         this.strengthMeter.style.width = `${validation.strength.percentage}%`;
         this.strengthMeter.className = `password-strength-meter ${validation.strength.label}`;
-
-        // Track password strength changes
-        gtag('event', 'password_strength_update', {
-            'strength_level': validation.strength.label,
-            'strength_score': validation.strength.percentage,
-            'requirements_met': Object.values(validation.requirements).filter(Boolean).length
-        });
     }
 
     async handleRegister(event) {
         event.preventDefault();
         this.hideError();
-
-        // Track registration attempt
-        gtag('event', 'begin_registration', {
-            'source': document.referrer || 'direct'
-        });
 
         // Get form data
         const formData = {
@@ -108,30 +96,17 @@ class AuthController {
         // Validate form data
         const emailValidation = this.validateEmail(formData.email);
         if (!emailValidation.isValid) {
-            gtag('event', 'registration_error', {
-                'error_type': 'invalid_email',
-                'error_message': emailValidation.message
-            });
             this.showError(emailValidation.message);
             return;
         }
 
         const passwordValidation = this.validatePassword(formData.password);
         if (!passwordValidation.isValid) {
-            gtag('event', 'registration_error', {
-                'error_type': 'invalid_password',
-                'error_message': passwordValidation.errors[0],
-                'password_strength': passwordValidation.strength.label
-            });
             this.showError(passwordValidation.errors[0]);
             return;
         }
 
         if (formData.password !== formData.confirmPassword) {
-            gtag('event', 'registration_error', {
-                'error_type': 'password_mismatch',
-                'error_message': 'Passwords do not match'
-            });
             this.showError('Passwords do not match');
             return;
         }
@@ -149,23 +124,11 @@ class AuthController {
 
             if (data.success) {
                 // Track successful registration
-                gtag('event', 'sign_up', {
-                    'method': 'email',
-                    'success': true
-                });
                 window.location.href = '/auth/login.html';
             } else {
-                gtag('event', 'registration_error', {
-                    'error_type': 'api_error',
-                    'error_message': data.message || 'Registration failed'
-                });
                 this.showError(data.message || 'Registration failed');
             }
         } catch (error) {
-            gtag('event', 'registration_error', {
-                'error_type': 'network_error',
-                'error_message': error.message
-            });
             this.showError('An error occurred. Please try again later.');
             console.error('Registration error:', error);
         }
