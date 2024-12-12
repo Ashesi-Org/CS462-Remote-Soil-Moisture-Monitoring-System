@@ -132,24 +132,42 @@ For detailed configuration, see our [CI/CD workflow file](.github/workflows/ci-c
 
 ## Continuous Monitoring
 
-Our project utilizes Google Cloud's Managed Service for Prometheus (GMP) for comprehensive monitoring and observability.
+We leverage Datadog's integration with Google Cloud Platform (GCP) to monitor our application's performance, security, and overall health in real-time. This setup provides comprehensive visibility into our Kubernetes-based infrastructure and application metrics.
 
-### Monitoring Architecture
+### Infrastructure Monitoring
 
-- **Metrics Collection**: Automated collection of system and application metrics
-- **Performance Monitoring**: Real-time tracking of:
-  - Container CPU and memory usage
-  - Request latency and throughput
-  - Error rates and system health
-- **Alert Management**: Automated alerting for system anomalies
+1. **Kubernetes Cluster Monitoring**
+   - Pod health and status
+   - Node performance
+   - Container resource utilization
+   - Deployment status
 
-### Monitoring Dashboard
+![alt text](docs/datadog_k8s.png)
+*Caption: Kubernetes cluster overview showing pod status, resource utilization, and node health across our GKE cluster*
 
-Access our monitoring metrics through Google Cloud Console:
-1. Navigate to Monitoring → Metrics Explorer
-2. View predefined GKE dashboards
-3. Access custom Prometheus metrics
+2. **Application Performance**
+   - API endpoint response times
+   - Database query performance
+   - Error rates and types
+   - Resource consumption
 
+![alt text](docs/gke_dashboard.png)
+*Caption: Application Performance Monitoring dashboard showing API latency, error rates, and database performance metrics*
+
+
+### Real-time Metrics
+
+Our monitoring setup tracks critical metrics including:
+- System uptime and availability 
+- Resource utilization trends
+- Error frequency and patterns
+- API performance metrics
+- User experience data
+
+![alt text](image.png)
+*Caption: Datadog GCP integration page showing successful connection and data flow from our Google Cloud resources*
+
+In addition to Datadog, we also use Google Cloud's Managed Service for Prometheus (GMP) to monitor our application's performance and health.
 ![GCP Metrics Explorer showing container metrics](docs/gcp_metrics.png)
 
 ### Key Metrics Monitored
@@ -169,6 +187,7 @@ Access our monitoring metrics through Google Cloud Console:
 Alerting is also enabled for critical metrics, ensuring timely notifications for system anomalies.
 ![alt text](docs/image-9.png)
 ![alt text](docs/image-10.png)
+
 
 ## Continuous Feedback
 

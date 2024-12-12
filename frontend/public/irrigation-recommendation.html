@@ -24,19 +24,22 @@
     />
     <link rel="stylesheet" href="css/dashboard.css" />
     <link rel="icon" type="image/png" href="../images/logo.png" />
-
-    <!-- Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-G4Q56PYSQ5"
-    ></script>
+    <script src="js/datadog-rum-v4.js" type="text/javascript"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-G4Q56PYSQ5");
+      window.DD_RUM &&
+        window.DD_RUM.init({
+          applicationId: "4813da49-48a7-45fc-83bc-f29138b503fc",
+          clientToken: "pub18446ee674e9d0b6f80bdbae67c1545b",
+          site: "us5.datadoghq.com",
+          service: "soilsense",
+          env: "production",
+          sessionSampleRate: 100,
+          sessionReplaySampleRate: 20,
+          trackUserInteractions: true,
+          trackResources: true,
+          trackLongTasks: true,
+          defaultPrivacyLevel: "mask-user-input",
+        });
     </script>
   </head>
 
@@ -214,8 +217,8 @@
     <script>
       async function getRecommendations() {
         const recommendationBtn = document.getElementById("recommendationBtn");
-        const normalState = recommendationBtn.querySelector('.normal-state');
-        const loadingState = recommendationBtn.querySelector('.loading-state');
+        const normalState = recommendationBtn.querySelector(".normal-state");
+        const loadingState = recommendationBtn.querySelector(".loading-state");
         const soilType = document.getElementById("soilType").value;
         const plantType = document.getElementById("plantType").value;
         const landSize = document.getElementById("landSize").value;
@@ -228,8 +231,8 @@
         try {
           // Show loading state
           recommendationBtn.disabled = true;
-          normalState.style.display = 'none';
-          loadingState.style.display = 'inline-block';
+          normalState.style.display = "none";
+          loadingState.style.display = "inline-block";
           const response = await fetch("/api/recommendation.php", {
             method: "POST",
             headers: {
@@ -256,8 +259,8 @@
         } finally {
           // Reset button state
           recommendationBtn.disabled = false;
-          normalState.style.display = 'inline-block';
-          loadingState.style.display = 'none';
+          normalState.style.display = "inline-block";
+          loadingState.style.display = "none";
         }
       }
 
