@@ -4,26 +4,28 @@
 The Remote Soil Moisture Monitoring System is a smart solution designed to help farmers optimize irrigation using real-time weather data, soil conditions, and predictive analytics. By leveraging remote data sources and modern technology, the system eliminates the need for physical sensors, making it cost-effective and scalable.  
 
 ## Features  
-- **Weather & Soil Data Analysis:** Collects data from APIs (e.g., OpenWeatherMap) to estimate soil moisture.  
-- **Irrigation Recommendations:** Generates optimized schedules based on soil moisture predictions.  
-- **Interactive Dashboards:** Visualizes soil trends, weather data, and irrigation plans.  
+- **Weather & Soil Data Analysis:** Collects data from APIs (e.g., OpenWeatherMap, Open Meteo AI) to estimate soil moisture based on your current location.  
+- **Irrigation Recommendations:** Generates optimized schedules based on soil moisture predictions, land size, soil type and crop type.  
+- **Interactive Dashboards:** Visualizes soil trends, weather data uch as humidity and temperature, and irrigation plans.  
 - **Sustainability:** Promotes water conservation and climate resilience.  
 
 ## Technologies  
-- **Frontend:** HTML, CSS, PHP for user interface and dashboard.  
+- **Frontend:** HTML, CSS, Javascript, Nginx, PHP for user interface and dashboard.  
 - **Database:** PostgreSQL for structured data storage and query optimization.  
 - **Backend:** PHP for data processing and integration.  
 - **Monitoring:**  Datadog & Managed Service with Prometheus.  
-- **Containerization & Orchestration:** Kubernetes for scaling, deployment, and high availability.  
+- **Containerization & Orchestration:** Kubernetes from Google Kubenertes Engine for scaling, deployment, and high availability.  
 - **Testing:** PHPUnit for PHP scripts.  
-- **Continuous Integration/Delivery:** GitHub Actions for automated pipelines.  
+- **Continuous Integration/Delivery:** GitHub Actions for automated pipelines.
+- **Nginx** to render frontend pages fast
+- **Docker hub/ Docker desktop** for containers and docker image creation
 
 ## Continuous Development
 ![image](https://github.com/user-attachments/assets/5555e0ca-def4-43ee-b0b5-8c062a6d47e0)
 ![image](https://github.com/user-attachments/assets/1c066951-8fcf-46c2-b70d-c0b09c4f3caa)
 ![image](https://github.com/user-attachments/assets/e7abe1c8-553a-490b-bafb-1cab30bd7864)
 
-
+**System Architecture**
 
 ![alt text](<docs/WhatsApp Image 2024-12-11 at 21.45.34_665537b5.jpg>)
 
