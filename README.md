@@ -28,7 +28,8 @@ The Remote Soil Moisture Monitoring System is a smart solution designed to help 
 ![image](https://github.com/user-attachments/assets/e7abe1c8-553a-490b-bafb-1cab30bd7864)
 
 ## System Architecture
-![alt text](<docs/WhatsApp Image 2024-12-11 at 21.45.34_665537b5.jpg>)
+![image](https://github.com/user-attachments/assets/f8c92861-291d-449a-a2f2-f49187ebf9d4)
+
 
 ## Continuous Integration (CI) Pipeline
 
