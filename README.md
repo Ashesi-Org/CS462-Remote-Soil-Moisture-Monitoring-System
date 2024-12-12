@@ -18,6 +18,9 @@ The Remote Soil Moisture Monitoring System is a smart solution designed to help 
 - **Testing:** PHPUnit for PHP scripts.  
 - **Continuous Integration/Delivery:** GitHub Actions for automated pipelines.  
 
+
+![alt text](<docs/WhatsApp Image 2024-12-11 at 21.45.34_665537b5.jpg>)
+
 ## Continuous Integration (CI) Pipeline
 
 Our project implements a robust CI pipeline using GitHub Actions to ensure code quality and reliability. The pipeline automatically runs whenever code changes are pushed to the main branch or pull requests are created.
