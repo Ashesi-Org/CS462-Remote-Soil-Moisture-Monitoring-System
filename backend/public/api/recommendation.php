@@ -1,35 +1,95 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+
+// Handle preflight OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
+// Ensure this is a POST request
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['error' => 'Method not allowed']);
+    exit();
+}
+
+// Get posted data
+$data = json_decode(file_get_contents("php://input"), true);
+
+// Validate required fields
+if (!isset($data['soil_type']) || !isset($data['plant']) || !isset($data['land_size'])) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Missing required fields']);
+    exit();
+}
+
+// Normalize input data
+$lat = $data['lat'] ?? 5.76;
+$lon = $data['lon'] ?? -0.23;
+$soilType = ucfirst(strtolower($data['soil_type']));
+$plant = ucfirst(strtolower($data['plant']));
+$hectares = floatval($data['land_size']);
+
+// Fetch weather data
 function fetchWeatherData($lat, $lon) {
-    $apiKey = "4c8e6578aea8637394867ee364c1ee30";  // Your OpenWeatherMap API key
-    $weatherApiUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=5.76&lon=-0.23&appid=4c8e6578aea8637394867ee364c1ee30&units=metric";
+    $apiKey = "4c8e6578aea8637394867ee364c1ee30";
+    $weatherApiUrl = "http://api.openweathermap.org/data/2.5/forecast?lat={$lat}&lon={$lon}&appid={$apiKey}&units=metric";
 
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $weatherApiUrl);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $weatherApiUrl,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET"
+    ]);
 
     $response = curl_exec($ch);
+    $err = curl_error($ch);
     curl_close($ch);
+
+    if ($err) {
+        throw new Exception("Weather API Error: " . $err);
+    }
 
     return json_decode($response, true);
 }
 
-function fetchSoilMoistureData($latitude, $longitude) {
-    $soilApiUrl = "https://api.open-meteo.com/v1/forecast?latitude=5.76&longitude=-0.23&current=soil_moisture_27_81cm&timezone=auto";
+// Fetch soil moisture data
+function fetchSoilMoistureData($lat, $lon) {
+    $soilApiUrl = "https://api.open-meteo.com/v1/forecast?latitude={$lat}&longitude={$lon}&current=soil_moisture_27_81cm&timezone=auto";
 
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $soilApiUrl);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $soilApiUrl,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET"
+    ]);
 
     $response = curl_exec($ch);
+    $err = curl_error($ch);
     curl_close($ch);
+
+    if ($err) {
+        throw new Exception("Soil Moisture API Error: " . $err);
+    }
 
     return json_decode($response, true);
 }
 
+// Calculate water amount needed
 function calculateWaterAmount($hectares, $soilMoisture, $targetMoisture) {
     $waterPerHectare = 1000 * ($targetMoisture - $soilMoisture) / 100; // Liters per hectare
     return round($waterPerHectare * $hectares, 2); // Total water in liters
 }
+
+// Calculate irrigation schedule
 function calculateIrrigationSchedule($plant, $soilType, $hectares, $weatherData, $soilMoisture) {
     $plantRules = [
         'Maize' => [
@@ -60,66 +120,60 @@ function calculateIrrigationSchedule($plant, $soilType, $hectares, $weatherData,
     ];
 
     if (!isset($plantRules[$plant][$soilType])) {
-        return ['error' => "$plant cannot be grown in $soilType soil."];
+        throw new Exception("Invalid plant and soil type combination");
     }
 
     $rule = $plantRules[$plant][$soilType];
     $schedule = [];
-    
-    foreach ($weatherData['list'] as $dayIndex => $forecast) {
-        if ($dayIndex >= 1) break; // Limit to a day
 
-        $temp = $forecast['main']['temp'];
-        $humidity = $forecast['main']['humidity'];
-        $wind = $forecast['wind']['speed'];
-        // Setting the default timezone
-        date_default_timezone_set('Africa/Accra'); 
-        
-        // Get today's date
-        $date = date('Y-m-d');
+    // Get current weather conditions from first forecast
+    $currentWeather = $weatherData['list'][0];
+    $temp = $currentWeather['main']['temp'];
+    $humidity = $currentWeather['main']['humidity'];
+    $wind = $currentWeather['wind']['speed'];
 
-
-        // Adjust irrigation frequency based on weather and soil moisture
-        $freq = $rule['freq'][1];
-        if ($temp > 30 || $humidity < 40 || $wind > 20 || $soilMoisture < $rule['target_moisture']) {
-            $freq = $rule['freq'][0];
-        }
-
-        $waterAmount = calculateWaterAmount($hectares, $soilMoisture, $rule['target_moisture']);
-
-        $schedule[] = [
-            'date' => $date,
-            'temperature' => $forecast['main']['temp'],
-            'humidity' => $forecast['main']['humidity'],
-            'wind_speed' => $forecast['wind']['speed'],
-            'soil_moisture' => $soilMoisture,
-            'irrigation_window' => "Every $freq hours",
-            'target_moisture' => $rule['target_moisture'],
-            'water_amount' => $waterAmount,
-            'action' => "Irrigate within $freq hours to bring soil moisture up to {$rule['target_moisture']}% level",
-            'description' => $rule['desc']
-
-        ];
+    // Adjust irrigation frequency based on conditions
+    $freq = $rule['freq'][1];
+    if ($temp > 30 || $humidity < 40 || $wind > 20 || $soilMoisture < $rule['target_moisture']) {
+        $freq = $rule['freq'][0];
     }
+
+    $waterAmount = calculateWaterAmount($hectares, $soilMoisture, $rule['target_moisture']);
+
+    $schedule[] = [
+        'date' => date('Y-m-d'),
+        'temperature' => $temp,
+        'humidity' => $humidity,
+        'wind_speed' => $wind,
+        'soil_moisture' => $soilMoisture,
+        'irrigation_window' => "Every $freq hours",
+        'target_moisture' => $rule['target_moisture'],
+        'water_amount' => $waterAmount,
+        'action' => "Irrigate within $freq hours to bring soil moisture up to {$rule['target_moisture']}% level",
+        'description' => $rule['desc']
+    ];
 
     return $schedule;
 }
 
+try {
+    // Fetch required data
+    $weatherData = fetchWeatherData($lat, $lon);
+    $soilMoistureData = fetchSoilMoistureData($lat, $lon);
+    $soilMoisture = $soilMoistureData['current']['soil_moisture_27_81cm'] ?? 20;
+    $soilMoisture *= 100; // Convert to percentage
 
-// Fetch input data
-$lat = isset($_GET['lat']) ? $_GET['lat'] : 5.759391;
-$lon = isset($_GET['lon']) ? $_GET['lon'] : -0.220172;
-$soilType = isset($_GET['soil_type']) ? ucfirst(strtolower($_GET['soil_type'])) : 'Loamy';
-$plant = isset($_GET['plant']) ? ucfirst(strtolower($_GET['plant'])) : 'Maize';
-$hectares = isset($_GET['hectares']) ? floatval($_GET['hectares']) : 1.0;
+    // Calculate schedule
+    $schedule = calculateIrrigationSchedule($plant, $soilType, $hectares, $weatherData, $soilMoisture);
 
-$weatherData = fetchWeatherData($lat, $lon);
-$soilMoistureData = fetchSoilMoistureData($lat, $lon);
-$soilMoisture = $soilMoistureData['current']['soil_moisture_27_81cm'] ?? 20;
+    // Return response
+    http_response_code(200);
+    echo json_encode($schedule, JSON_PRETTY_PRINT);
 
-$schedule = calculateIrrigationSchedule($plant, $soilType, $hectares, $weatherData, $soilMoisture);
-
-// Display Schedule
-header('Content-Type: application/json');
-echo json_encode($schedule, JSON_PRETTY_PRINT);
-?>
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
+        'error' => 'Internal server error',
+        'message' => $e->getMessage()
+    ]);
+}

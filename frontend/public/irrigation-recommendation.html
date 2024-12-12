@@ -23,7 +23,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/dashboard.css" />
-    <link rel="icon" type="image/png" href="../images/logo.png">
+    <link rel="icon" type="image/png" href="../images/logo.png" />
 
     <!-- Google Analytics -->
     <script
@@ -182,10 +182,11 @@
                     onclick="getRecommendations()"
                   >
                     <span class="normal-state">
-                      <i class='bx bx-bulb'></i> Get Recommendations
+                      <i class="bx bx-bulb"></i> Get Recommendations
                     </span>
-                    <span class="loading-state" style="display: none;">
-                      <i class='bx bx-loader-alt bx-spin'></i> Fetching Recommendations...
+                    <span class="loading-state" style="display: none">
+                      <i class="bx bx-loader-alt bx-spin"></i> Fetching
+                      Recommendations...
                     </span>
                   </button>
                 </div>
@@ -209,14 +210,12 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="js/userSession.js"></script>
     <script src="js/logout.js"></script>
-    <script src="js/dashboard.js"></script>
 
     <script>
       async function getRecommendations() {
         const recommendationBtn = document.getElementById("recommendationBtn");
         const normalState = recommendationBtn.querySelector('.normal-state');
         const loadingState = recommendationBtn.querySelector('.loading-state');
-
         const soilType = document.getElementById("soilType").value;
         const plantType = document.getElementById("plantType").value;
         const landSize = document.getElementById("landSize").value;
@@ -231,7 +230,6 @@
           recommendationBtn.disabled = true;
           normalState.style.display = 'none';
           loadingState.style.display = 'inline-block';
-
           const response = await fetch("/api/recommendation.php", {
             method: "POST",
             headers: {
@@ -241,8 +239,8 @@
               soil_type: soilType,
               plant: plantType,
               land_size: landSize,
-              lat: 5.759391,
-              lon: -0.220172,
+              lat: 5.76,
+              lon: -0.23,
             }),
           });
 
@@ -274,28 +272,28 @@
           dayDiv.className = "recommendation-item card mb-3";
 
           dayDiv.innerHTML = `
-                    <div class="card-body">
-                        <h5 class="card-title">Current Conditions</h5>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><i class='bx bx-thermometer'></i> Temperature: ${day.temperature}°C</p>
-                                <p><i class='bx bx-droplet'></i> Humidity: ${day.humidity}%</p>
-                                <p><i class='bx bx-wind'></i> Wind Speed: ${day.wind_speed} km/h</p>
-                                <p><i class='bx bx-water'></i> Soil Moisture: ${day.soil_moisture}%</p>
-                            </div>
-                            <div class="col-md-6">
-                                <h5 class="mt-3 mt-md-0">Recommendations</h5>
-                                <p><strong>Irrigation Window:</strong> ${day.irrigation_window}</p>
-                                <p><strong>Target Moisture:</strong> ${day.target_moisture}%</p>
-                                <p><strong>Water Amount:</strong> ${day.water_amount} liters</p>
-                                <p class="text-success"><strong>Action:</strong> ${day.action}</p>
-                            </div>
-                        </div>
-                        <div class="mt-3 p-3 bg-light rounded">
-                            <p class="mb-0"><i class='bx bx-info-circle'></i> <strong>Note:</strong> ${day.description}</p>
-                        </div>
-                    </div>
-                `;
+                  <div class="card-body">
+                      <h5 class="card-title">Current Conditions</h5>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <p><i class='bx bx-thermometer'></i> Temperature: ${day.temperature}°C</p>
+                              <p><i class='bx bx-droplet'></i> Humidity: ${day.humidity}%</p>
+                              <p><i class='bx bx-wind'></i> Wind Speed: ${day.wind_speed} km/h</p>
+                              <p><i class='bx bx-water'></i> Soil Moisture: ${day.soil_moisture}%</p>
+                          </div>
+                          <div class="col-md-6">
+                              <h5 class="mt-3 mt-md-0">Recommendations</h5>
+                              <p><strong>Irrigation Window:</strong> ${day.irrigation_window}</p>
+                              <p><strong>Target Moisture:</strong> ${day.target_moisture}%</p>
+                              <p><strong>Water Amount:</strong> ${day.water_amount} liters</p>
+                              <p class="text-success"><strong>Action:</strong> ${day.action}</p>
+                          </div>
+                      </div>
+                      <div class="mt-3 p-3 bg-light rounded">
+                          <p class="mb-0"><i class='bx bx-info-circle'></i> <strong>Note:</strong> ${day.description}</p>
+                      </div>
+                  </div>
+              `;
 
           scheduleList.appendChild(dayDiv);
         });
