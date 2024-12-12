@@ -252,7 +252,8 @@ Our RUM setup tracks:
 ![alt text](docs/datadog_error.png)
 
 
-## Images of Deployed website find attached a link to website: https://34.55.145.169/
+## Images of Deployed website.
+## Find attached a link to the website: https://34.55.145.169/
 ## Dashboard
 ![image](https://github.com/user-attachments/assets/b827fcab-70de-46c3-88b1-47602aeac21f)
 *Dashboard showing realtime weather forecast(temperature, humdity and wind speed) based on your location, there is also a chart to visualize soil trends over a number of days and a card showing soil level every 3 hours*
