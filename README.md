@@ -253,7 +253,8 @@ Our RUM setup tracks:
 
 
 ## Images of Deployed website find attached a link to website: https://34.55.145.169/
-![Dashboard showing realtime weather forecast(temperature, humdity and wind speed) based on your location, there is also a chart to visualize soil trends over a number of days and a card showing soil level every 3 hours  ](https://github.com/user-attachments/assets/b827fcab-70de-46c3-88b1-47602aeac21f)
+![image](https://github.com/user-attachments/assets/b827fcab-70de-46c3-88b1-47602aeac21f)
+*Dashboard showing realtime weather forecast(temperature, humdity and wind speed) based on your location, there is also a chart to visualize soil trends over a number of days and a card showing soil level every 3 hours *
 
 
 
