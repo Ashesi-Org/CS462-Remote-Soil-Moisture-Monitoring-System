@@ -123,7 +123,6 @@ class AuthController {
             const data = await response.json();
 
             if (data.success) {
-                // Track successful registration
                 window.location.href = '/auth/login.html';
             } else {
                 this.showError(data.message || 'Registration failed');

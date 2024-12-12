@@ -39,11 +39,6 @@ class AuthController {
         const type = this.passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         this.passwordInput.setAttribute('type', type);
         
-        // Track password visibility toggle
-        trackEvent('password_visibility_toggle', {
-            'state': type === 'text' ? 'shown' : 'hidden'
-        });
-
         const icon = this.togglePasswordBtn.querySelector('i');
         icon.classList.toggle('bx-hide');
         icon.classList.toggle('bx-show');
@@ -57,11 +52,6 @@ class AuthController {
         const rememberMe = document.getElementById('rememberMe')?.checked;
 
         try {
-            // Track login attempt
-            trackEvent('login_attempt', {
-                'method': 'email'
-            });
-
             const response = await fetch('/api/auth/login.php', {
                 method: 'POST',
                 headers: {
@@ -73,10 +63,7 @@ class AuthController {
             const data = await response.json();
 
             if (data.success) {
-                // Track successful login
-                trackEvent('login_success', {
-                    'method': 'email'
-                });
+
 
                 if (rememberMe) {
                     localStorage.setItem('rememberedEmail', email);
@@ -86,18 +73,11 @@ class AuthController {
 
                 window.location.href = '/dashboard.html';
             } else {
-                // Track failed login
-                trackEvent('login_failed', {
-                    'error_type': data.message
-                });
 
                 this.showError(data.message);
             }
         } catch (error) {
-            // Track error
-            trackEvent('login_error', {
-                'error_type': 'network_error'
-            });
+
 
             console.error('Login error:', error);
             this.showError('An error occurred. Please try again.');

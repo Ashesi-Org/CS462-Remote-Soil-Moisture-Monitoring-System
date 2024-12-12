@@ -190,6 +190,36 @@ Alerting is also enabled for critical metrics, ensuring timely notifications for
 
 
 ## Continuous Feedback
+We used Datadog's Real User Monitoring (RUM) to gather and analyze real-time user interactions, performance metrics, and behavior patterns. This implementation enables us to make data-driven decisions for improving user experience and application performance.
+
+### Real User Monitoring Implementation
+
+Our RUM setup tracks:
+
+1. **User Journey Analytics**
+   - Page navigation patterns
+   - Feature usage frequency
+   - Time spent on features
+   
+![alt text](docs/datadog-rum.png)
+*Caption: User journey visualization showing common navigation paths and interaction patterns across the application*
+
+2. **Performance Metrics**
+   - Page load times
+   - API response latency
+   - Resource loading speed
+   - Frontend rendering time
+
+![alt text](docs/datadog-performance.png)
+
+3. **Errors**
+   - JavaScript errors
+   - Failed API calls
+   - UI rendering issues
+   - Network failures
+![alt text](docs/datadog_error.png)
+
+
 
 
 
