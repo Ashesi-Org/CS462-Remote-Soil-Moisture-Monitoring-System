@@ -270,5 +270,7 @@ Our RUM setup tracks:
 
 ## Irrigation Recommendation page
 ![image](https://github.com/user-attachments/assets/76994c9e-a9f4-400d-a083-b65c7d700193)
+![image](https://github.com/user-attachments/assets/854fbc55-f0fc-4e60-b251-b5a41e6c15fc)
+*Irrigation recommendation page which recommends irrigation metrics( irrigation window, amount of water needed for irrigation and actions to be taken) based on current weather conditions, soil moisture, humidity and wind speed. It also considers the plant type.*
 
 
