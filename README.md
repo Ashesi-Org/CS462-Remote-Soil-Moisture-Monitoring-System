@@ -21,11 +21,13 @@ The Remote Soil Moisture Monitoring System is a smart solution designed to help 
 - **Docker hub/ Docker desktop** for containers and docker image creation
 
 ## Continuous Development
+- **Images of our trello board, find attached a link to the trello page: https://trello.com/b/tGpWEe0J/sustainable-urban-mobility-progress
+  
 ![image](https://github.com/user-attachments/assets/5555e0ca-def4-43ee-b0b5-8c062a6d47e0)
 ![image](https://github.com/user-attachments/assets/1c066951-8fcf-46c2-b70d-c0b09c4f3caa)
 ![image](https://github.com/user-attachments/assets/e7abe1c8-553a-490b-bafb-1cab30bd7864)
 
-**System Architecture**
+## System Architecture
 
 ![alt text](<docs/WhatsApp Image 2024-12-11 at 21.45.34_665537b5.jpg>)
 
