@@ -75,6 +75,8 @@ Our project utilizes a robust deployment architecture combining Google Kubernete
    - Configured secure access between GitHub Actions and cloud services
 
    ![Docker Hub repository showing our container images](docs/image-2.png)
+   ![alt text](docs/docker_repo.png)
+   ![alt text](docs/docker-desktop.png)
 
 ### Container Architecture
 
