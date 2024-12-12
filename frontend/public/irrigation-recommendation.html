@@ -212,40 +212,6 @@
     <script src="js/dashboard.js"></script>
 
     <script>
-      function trackEvent(eventName, parameters = {}) {
-        gtag('event', eventName, parameters);
-      }
-
-      document.addEventListener('DOMContentLoaded', function() {
-        // Track page load
-        trackEvent('recommendation_page_view');
-
-        // Track form interactions
-        const form = document.getElementById('irrigationForm');
-        if (form) {
-          // Track soil type selection
-          document.getElementById('soilType')?.addEventListener('change', function() {
-            trackEvent('soil_type_selected', {
-              'value': this.value
-            });
-          });
-
-          // Track plant type selection
-          document.getElementById('plantType')?.addEventListener('change', function() {
-            trackEvent('plant_type_selected', {
-              'value': this.value
-            });
-          });
-
-          // Track land size input
-          document.getElementById('landSize')?.addEventListener('change', function() {
-            trackEvent('land_size_entered', {
-              'value': this.value
-            });
-          });
-        }
-      });
-
       async function getRecommendations() {
         const recommendationBtn = document.getElementById("recommendationBtn");
         const normalState = recommendationBtn.querySelector('.normal-state');
@@ -256,26 +222,11 @@
         const landSize = document.getElementById("landSize").value;
 
         if (!soilType || !plantType || !landSize) {
-          trackEvent('recommendation_error', {
-            'error_type': 'incomplete_form',
-            'missing_fields': [
-              !soilType ? 'soil_type' : null,
-              !plantType ? 'plant_type' : null,
-              !landSize ? 'land_size' : null
-            ].filter(Boolean).join(',')
-          });
           alert("Please complete all fields.");
           return;
         }
 
         try {
-          // Track recommendation request
-          trackEvent('recommendation_request', {
-            'soil_type': soilType,
-            'plant_type': plantType,
-            'land_size': landSize
-          });
-
           // Show loading state
           recommendationBtn.disabled = true;
           normalState.style.display = 'none';
@@ -300,20 +251,8 @@
           }
 
           const data = await response.json();
-          
-          // Track successful recommendation
-          trackEvent('recommendation_success', {
-            'recommendations_count': data.length,
-            'irrigation_needed': data.some(day => day.action.includes('irrigate'))
-          });
-
           displayRecommendations(data);
         } catch (error) {
-          // Track error
-          trackEvent('recommendation_error', {
-            'error_type': 'api_error',
-            'error_message': error.message
-          });
           console.error("Error:", error);
           alert("Error fetching recommendations. Please try again later.");
         } finally {
@@ -329,13 +268,6 @@
         const scheduleList = document.getElementById("scheduleList");
 
         scheduleList.innerHTML = "";
-
-        // Track recommendations display
-        trackEvent('recommendations_displayed', {
-          'schedule_length': schedule.length,
-          'average_temperature': schedule.reduce((acc, day) => acc + day.temperature, 0) / schedule.length,
-          'average_humidity': schedule.reduce((acc, day) => acc + day.humidity, 0) / schedule.length
-        });
 
         schedule.forEach((day) => {
           const dayDiv = document.createElement("div");
