@@ -237,6 +237,25 @@ Our RUM setup tracks:
 
 ![alt text](docs/datadog_error.png)
 
+## Continuous Operations
+
+We leverage Kubernetes native features to implement a robust continuous operations strategy, ensuring minimal downtime and seamless updates for our application.
+
+### Kubernetes Native Tools
+
+The following Kubernetes capabilities will allow us to ensure continuous operations:
+
+* **Deployments:**  Manage rolling updates and rollbacks for our application containers, ensuring a controlled and gradual rollout of new versions.
+* **Liveness and Readiness Probes:**  Continuously monitor the health of our application containers, automatically restarting unhealthy containers and ensuring only healthy containers receive traffic.
+
+### Benefits
+
+* **No External Dependencies:**  Leverage Kubernetes' built-in capabilities without relying on third-party tools.
+* **Simplified Management:**  Streamlined continuous operations management through Kubernetes' declarative configuration and automated processes.
+* **Efficient Resource Utilization:**  Minimize downtime and optimize resource usage through Kubernetes' rolling updates and health checks.ur continuous operations strategy includes the following deployment strategies:
+* **Rolling Updates:** Gradually roll out new versions of our application, ensuring minimal disruption to users.
+
+
 
 ##Link to website: https://34.55.145.169/
 ##Linkt to Trello: https://trello.com/b/tGpWEe0J/sustainable-urban-mobility-progress
