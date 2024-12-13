@@ -4,22 +4,36 @@
 The Remote Soil Moisture Monitoring System is a smart solution designed to help farmers optimize irrigation using real-time weather data, soil conditions, and predictive analytics. By leveraging remote data sources and modern technology, the system eliminates the need for physical sensors, making it cost-effective and scalable.  
 
 ## Features  
-- **Weather & Soil Data Analysis:** Collects data from APIs (e.g., OpenWeatherMap) to estimate soil moisture.  
-- **Irrigation Recommendations:** Generates optimized schedules based on soil moisture predictions.  
-- **Interactive Dashboards:** Visualizes soil trends, weather data, and irrigation plans.  
+- **Weather & Soil Data Analysis:** Collects data from APIs (e.g., OpenWeatherMap, Open Meteo AI) to estimate soil moisture based on your current location.  
+- **Irrigation Recommendations:** Generates optimized schedules based on soil moisture predictions, land size, soil type and crop type.  
+- **Interactive Dashboards:** Visualizes soil trends, weather data uch as humidity and temperature, and irrigation plans.  
 - **Sustainability:** Promotes water conservation and climate resilience.  
 
 ## Technologies  
-- **Frontend:** HTML, CSS, PHP for user interface and dashboard.  
+- **Frontend:** HTML, CSS, Javascript, Nginx, PHP for user interface and dashboard.  
 - **Database:** PostgreSQL for structured data storage and query optimization.  
 - **Backend:** PHP for data processing and integration.  
 - **Monitoring:**  Datadog & Managed Service with Prometheus.  
-- **Containerization & Orchestration:** Kubernetes for scaling, deployment, and high availability.  
+- **Containerization & Orchestration:** Kubernetes from Google Kubenertes Engine for scaling, deployment, and high availability.  
 - **Testing:** PHPUnit for PHP scripts.  
-- **Continuous Integration/Delivery:** GitHub Actions for automated pipelines.  
+- **Continuous Integration/Delivery:** GitHub Actions for automated pipelines.
+- **Nginx** to render frontend pages fast
+- **Docker hub/ Docker desktop** for containers and docker image creation
+
+## Continuous Development
+- Images of our trello board, find attached a link to the trello page: https://trello.com/b/tGpWEe0J/sustainable-urban-mobility-progress
+- Aside Trello we used feature branches
+- We used visual studio code for continuous development
 
 
-![alt text](<docs/WhatsApp Image 2024-12-11 at 21.45.34_665537b5.jpg>)
+  
+![image](https://github.com/user-attachments/assets/5555e0ca-def4-43ee-b0b5-8c062a6d47e0)
+![image](https://github.com/user-attachments/assets/1c066951-8fcf-46c2-b70d-c0b09c4f3caa)
+![image](https://github.com/user-attachments/assets/e7abe1c8-553a-490b-bafb-1cab30bd7864)
+
+## System Architecture
+![image](https://github.com/user-attachments/assets/f8c92861-291d-449a-a2f2-f49187ebf9d4)
+
 
 ## Continuous Integration (CI) Pipeline
 
@@ -257,5 +271,29 @@ The following Kubernetes capabilities will allow us to ensure continuous operati
 
 
 
-##Link to website: https://34.55.145.169/
-##Linkt to Trello: https://trello.com/b/tGpWEe0J/sustainable-urban-mobility-progress
+## Images of Deployed website.
+## Find attached a link to the website: https://34.55.145.169/
+## Dashboard
+![image](https://github.com/user-attachments/assets/b827fcab-70de-46c3-88b1-47602aeac21f)
+*Dashboard showing realtime weather forecast(temperature, humdity and wind speed) based on your location, there is also a chart to visualize soil trends over a number of days and a card showing soil level every 3 hours*
+
+![image](https://github.com/user-attachments/assets/9db88444-6a4b-44de-9daf-21f1f9c5e88a)
+*Recent activity based on irrigation schedule updates and upcoing tasks*
+
+## Irrigation Scheduling Page
+![image](https://github.com/user-attachments/assets/3c04c259-753f-4d9e-b36d-54f644402cd9)
+![image](https://github.com/user-attachments/assets/f9b1187b-7cd6-4e17-8528-287629041c62)
+![image](https://github.com/user-attachments/assets/f18e2a40-0078-42df-aab3-29f11fbd760e)
+
+*Irrigation schedule page where the user can plan how they will shcedule the watering of their farms adn how much water will be used, it also makes use of their location*
+
+
+## Irrigation Recommendation page
+![image](https://github.com/user-attachments/assets/76994c9e-a9f4-400d-a083-b65c7d700193)
+![image](https://github.com/user-attachments/assets/854fbc55-f0fc-4e60-b251-b5a41e6c15fc)
+*Irrigation recommendation page which recommends irrigation metrics( irrigation window, amount of water needed for irrigation and actions to be taken) based on current weather conditions, soil moisture, humidity and wind speed. It also considers the plant type.*
+
+
+## Profile page 
+![image](https://github.com/user-attachments/assets/8b82587c-93bd-4d0a-b5b9-94be7a3dc2fa)
+*Profile page to update user details*
